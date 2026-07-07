@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 @ToString
-public class PatientDto {
+public class PatientResponseDto {
 
     private String publicId;
 

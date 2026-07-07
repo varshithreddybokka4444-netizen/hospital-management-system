@@ -1,4 +1,4 @@
 package com.codingshuttle.youtube.hospitalManagement.dto;
 
-public class DoctorRequestdto {
+public class DoctorRequestDto {
 }

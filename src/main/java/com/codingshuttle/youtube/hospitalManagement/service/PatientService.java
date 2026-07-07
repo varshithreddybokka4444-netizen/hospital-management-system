@@ -1,7 +1,7 @@
 package com.codingshuttle.youtube.hospitalManagement.service;
 
-import com.codingshuttle.youtube.hospitalManagement.dto.AddPatientRequestDto;
-import com.codingshuttle.youtube.hospitalManagement.dto.PatientDto;
+import com.codingshuttle.youtube.hospitalManagement.dto.PatientRequestDto;
+import com.codingshuttle.youtube.hospitalManagement.dto.PatientResponseDto;
 import com.codingshuttle.youtube.hospitalManagement.entity.Patient;
 import com.codingshuttle.youtube.hospitalManagement.repository.PatientRepository;
 import jakarta.transaction.Transactional;
@@ -28,11 +28,11 @@ public class PatientService {
         patientRepository.deleteById(id);
     }
 
-  public @Nullable PatientDto registerNewPatient(@Valid AddPatientRequestDto addPatientRequestDto) {
+  public @Nullable PatientResponseDto registerNewPatient(@Valid PatientRequestDto addPatientRequestDto) {
 
         Patient newPatient = modelMapper.map(addPatientRequestDto,Patient.class);
         Patient patient = patientRepository.save(newPatient);
 
-      return modelMapper.map(patient,PatientDto.class);
+      return modelMapper.map(patient, PatientResponseDto.class);
   }
 }
