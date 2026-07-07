@@ -1,5 +1,6 @@
 package com.codingshuttle.youtube.hospitalManagement.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,11 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class DepartmentResponseDTO {
-    private String publicId;
-
+public class DoctorSummaryDto {
+    private String publicid;
     private String name;
-
-    private DoctorSummaryDto headDoctor;
-
+    private String specialisation;
 }

@@ -18,6 +18,9 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false,unique = true,updatable = false,length = 12)
+    private String publicId;
+
     @Column(nullable = false, unique = true,length = 50)
     private String name;
 
@@ -32,4 +35,10 @@ public class Department {
             inverseJoinColumns = @JoinColumn(name = "doctor_id"))
     private Set<Doctor> doctors = new HashSet<>();
 
+    @PrePersist
+    protected void onCreate(){
+        if(this.publicId==null){
+            this.publicId = java.util.UUID.randomUUID().toString().substring(0,12);
+        }
+    }
 }

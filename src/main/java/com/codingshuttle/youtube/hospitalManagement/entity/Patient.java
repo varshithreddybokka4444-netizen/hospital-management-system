@@ -79,7 +79,7 @@ public class Patient {
 
 
         if(this.publicId==null){
-            this.publicId = java.util.UUID.randomUUID().toString().substring(0,8);
+            this.publicId = java.util.UUID.randomUUID().toString().substring(0,12);
         }
        //  2. Fix the casing bug! Force the gender string to uppercase so Hibernate can read it
         if (this.gender != null) {
