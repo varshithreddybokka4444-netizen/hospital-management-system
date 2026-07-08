@@ -61,6 +61,9 @@ public class Patient {
 
     @Transient
     public int getAge(){
+        if(this.birthDate==null){
+            return 0;
+        }
         return Period.between(birthDate,LocalDate.now()).getYears();
     }
     @Enumerated(EnumType.STRING)
