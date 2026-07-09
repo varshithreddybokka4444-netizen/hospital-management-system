@@ -1,10 +1,11 @@
 package com.codingshuttle.youtube.hospitalManagement.controller;
 
-import com.codingshuttle.youtube.hospitalManagement.dto.PatientRequestDto;
+import com.codingshuttle.youtube.hospitalManagement.dto.PatientCreateDto;
 import com.codingshuttle.youtube.hospitalManagement.dto.PatientResponseDto;
+import com.codingshuttle.youtube.hospitalManagement.dto.PatientUpdateDto;
 import com.codingshuttle.youtube.hospitalManagement.service.PatientService;
-import com.codingshuttle.youtube.hospitalManagement.service.impl.PatientServiceImpl;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,21 +17,20 @@ import java.util.Optional;
 @Validated
 @RestController
 @RequestMapping("/patients")
+@RequiredArgsConstructor
 public class PatientController {
 
 
     private final PatientService patientService;
 
-    public PatientController(PatientService patientService) {
-        this.patientService = patientService;
-    }
+
 
     @PostMapping
-    public ResponseEntity<PatientResponseDto> createNewPatient(@RequestBody @Valid PatientRequestDto addPatientRequestDto){
+    public ResponseEntity<PatientResponseDto> createNewPatient(@RequestBody @Valid PatientCreateDto addPatientRequestDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(patientService.registerNewPatient(addPatientRequestDto));
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<PatientResponseDto>> getPatientById(@PathVariable("id") Long id){
+    public ResponseEntity<PatientResponseDto> getPatientById(@PathVariable Long id){
         return ResponseEntity.ok(patientService.getPatientById(id));
     }
     @GetMapping
@@ -44,8 +44,16 @@ public class PatientController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
     @PutMapping("/{id}")
-    public ResponseEntity<PatientResponseDto> updateStudent(@PathVariable Long id,
-                                                    @RequestBody PatientRequestDto addPatientRequestDto){
+    public ResponseEntity<PatientResponseDto> updatepatient(@PathVariable Long id,
+                                                    @RequestBody PatientCreateDto addPatientRequestDto){
         return ResponseEntity.ok(patientService.updatePatient(id,addPatientRequestDto));
     }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<PatientResponseDto> updatePartialPatient(@PathVariable Long id,
+                                                                   @RequestBody PatientUpdateDto updatePartialPatientRequestDto){
+
+        return ResponseEntity.ok(patientService.updatePartialPatient(id,updatePartialPatientRequestDto));
+    }
+
 }

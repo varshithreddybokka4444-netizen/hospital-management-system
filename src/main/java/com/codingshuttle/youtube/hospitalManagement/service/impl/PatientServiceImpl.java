@@ -1,7 +1,8 @@
 package com.codingshuttle.youtube.hospitalManagement.service.impl;
 
-import com.codingshuttle.youtube.hospitalManagement.dto.PatientRequestDto;
+import com.codingshuttle.youtube.hospitalManagement.dto.PatientCreateDto;
 import com.codingshuttle.youtube.hospitalManagement.dto.PatientResponseDto;
+import com.codingshuttle.youtube.hospitalManagement.dto.PatientUpdateDto;
 import com.codingshuttle.youtube.hospitalManagement.entity.Patient;
 import com.codingshuttle.youtube.hospitalManagement.exceptions.ResourseNotFoundException;
 import com.codingshuttle.youtube.hospitalManagement.repository.PatientRepository;
@@ -9,12 +10,10 @@ import com.codingshuttle.youtube.hospitalManagement.service.PatientService;
 import org.springframework.transaction.annotation.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.Nullable;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,10 +24,10 @@ public class PatientServiceImpl implements PatientService {
     public final ModelMapper modelMapper;
     @Transactional(readOnly = true)
     @Override
-    public Optional<PatientResponseDto> getPatientById(Long id){
+    public PatientResponseDto getPatientById(Long id){
         Patient p1 =   patientRepository.findById(id).orElseThrow(()->new ResourseNotFoundException("Patient not found with id "+id));
 
-        return Optional.of(modelMapper.map(p1,PatientResponseDto.class));
+        return modelMapper.map(p1,PatientResponseDto.class);
     }
 
 //    public void deleteById(long id) {
@@ -36,7 +35,7 @@ public class PatientServiceImpl implements PatientService {
 //    }
 
     @Override
-    public PatientResponseDto registerNewPatient(@Valid PatientRequestDto addPatientRequestDto) {
+    public PatientResponseDto registerNewPatient(@Valid PatientCreateDto addPatientRequestDto) {
 
         Patient newPatient = modelMapper.map(addPatientRequestDto,Patient.class);
         Patient savedPatient = patientRepository.save(newPatient);
@@ -57,16 +56,26 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    @Transactional
     public void deletePatientById(Long id) {
         Patient patient = patientRepository.findById(id).orElseThrow(()->new ResourseNotFoundException("Patient not found with id "+id));
-        patientRepository.deleteById(id);
+        patientRepository.delete(patient);
     }
 
     @Override
     @Transactional
-    public PatientResponseDto updatePatient(Long id, PatientRequestDto addPatientRequestDto) {
+    public PatientResponseDto updatePatient(Long id, PatientCreateDto updatePatientRequestDto) {
         Patient patient = patientRepository.findById(id).orElseThrow(()->new ResourseNotFoundException("Patient not found with id "+id));
-        modelMapper.map( addPatientRequestDto,patient);
+        modelMapper.map( updatePatientRequestDto,patient);
+
+        return modelMapper.map(patient,PatientResponseDto.class);
+    }
+
+    @Override
+    @Transactional
+    public PatientResponseDto updatePartialPatient(Long id, PatientUpdateDto updatePartialPatientRequestDto) {
+        Patient patient = patientRepository.findById(id).orElseThrow(()->new ResourseNotFoundException("Patient not found with id "+id));
+        modelMapper.map( updatePartialPatientRequestDto,patient);
 
         return modelMapper.map(patient,PatientResponseDto.class);
     }
