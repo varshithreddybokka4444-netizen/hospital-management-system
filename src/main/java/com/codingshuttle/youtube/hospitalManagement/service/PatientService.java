@@ -13,7 +13,7 @@ public interface PatientService {
     Optional<PatientResponseDto> getPatientById(Long id);
 
 
-     PatientResponseDto registerNewPatient(@Valid PatientRequestDto addPatientRequestDto);
+     PatientResponseDto registerNewPatient(PatientRequestDto addPatientRequestDto);
 
 
     List<PatientResponseDto> getAllPatients();
@@ -21,5 +21,5 @@ public interface PatientService {
 
     void deletePatientById(Long id);
 
-     PatientResponseDto updatePatient(Long id, PatientRequestDto addPatientRequestDto);
+     PatientResponseDto updatePatient(Long id, PatientRequestDto patientRequestDto);
 }
