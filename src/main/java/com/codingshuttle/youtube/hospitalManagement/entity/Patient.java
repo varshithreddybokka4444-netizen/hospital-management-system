@@ -78,8 +78,6 @@ public class Patient {
 
     @PrePersist
     protected void onCreate() {
-        // 1. Automatically generate the unique random token if null
-
 
         if(this.publicId==null){
             this.publicId = java.util.UUID.randomUUID().toString().substring(0,12);

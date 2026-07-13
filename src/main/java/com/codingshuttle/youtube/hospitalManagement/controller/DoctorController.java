@@ -29,8 +29,8 @@ public class DoctorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DoctorResponseDto>getDoctorById(@PathVariable Long id){
-        return ResponseEntity.ok(doctorService.getDoctorById(id));
+    public ResponseEntity<DoctorResponseDto>getDoctorByPublicId(@PathVariable String publicId){
+        return ResponseEntity.ok(doctorService.getDoctorByPublicId(publicId));
     }
 
 
@@ -41,20 +41,20 @@ public class DoctorController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDoctorById(@PathVariable Long id){
-        doctorService.deleteDoctorById(id);
+    public ResponseEntity<Void> deleteDoctorById(@PathVariable String publicId){
+        doctorService.deleteDoctorByPublicId(publicId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DoctorResponseDto> updateDoctor(@PathVariable Long id,
+    public ResponseEntity<DoctorResponseDto> updateDoctor(@PathVariable String publicId,
                                                            @RequestBody DoctorCreateDto updateDoctorRequestDto){
-        return ResponseEntity.ok(doctorService.updateDoctor(id,updateDoctorRequestDto));
+        return ResponseEntity.ok(doctorService.updateDoctor(publicId,updateDoctorRequestDto));
     }
 
     @PostMapping("/{id")
-    public ResponseEntity<DoctorResponseDto> updatePartialDoctor(@PathVariable Long id,
+    public ResponseEntity<DoctorResponseDto> updatePartialDoctor(@PathVariable String publicId,
                                                                  @RequestBody DoctorUpdateDto updatePartialDoctorUpdateDto){
-        return ResponseEntity.ok(doctorService.updatePartialDoctor(id,updatePartialDoctorUpdateDto));
+        return ResponseEntity.ok(doctorService.updatePartialDoctor(publicId,updatePartialDoctorUpdateDto));
     }
 }

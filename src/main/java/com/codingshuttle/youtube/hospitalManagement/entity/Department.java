@@ -28,6 +28,7 @@ public class Department {
     @JoinColumn(name = "head_doctor_id",nullable = false)
     private Doctor headDoctor;
 
+    @Builder.Default
     @ManyToMany
     @JoinTable(
             name = "my_dpt_doctors",

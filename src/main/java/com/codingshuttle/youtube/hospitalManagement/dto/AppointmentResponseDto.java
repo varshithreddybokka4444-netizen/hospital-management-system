@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 @ToString
-public class AppointmentResponseDTO {
+public class AppointmentResponseDto {
     private String publicId;
 
     private PatientSummaryDto patient;

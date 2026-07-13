@@ -6,13 +6,14 @@ import com.codingshuttle.youtube.hospitalManagement.entity.Patient;
 import com.codingshuttle.youtube.hospitalManagement.repository.AppointmentRepository;
 import com.codingshuttle.youtube.hospitalManagement.repository.DoctorRepository;
 import com.codingshuttle.youtube.hospitalManagement.repository.PatientRepository;
+import com.codingshuttle.youtube.hospitalManagement.service.AppointmentService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class AppointmentServiceImpl {
+public class AppointmentServiceImpl implements AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
     private final DoctorRepository doctorRepository;

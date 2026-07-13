@@ -1,11 +1,11 @@
 package com.codingshuttle.youtube.hospitalManagement.service.impl;
 
-import com.codingshuttle.youtube.hospitalManagement.dto.PatientCreateDto;
-import com.codingshuttle.youtube.hospitalManagement.dto.PatientResponseDto;
-import com.codingshuttle.youtube.hospitalManagement.dto.PatientUpdateDto;
+import com.codingshuttle.youtube.hospitalManagement.dto.*;
+import com.codingshuttle.youtube.hospitalManagement.entity.Insurance;
 import com.codingshuttle.youtube.hospitalManagement.entity.Patient;
 import com.codingshuttle.youtube.hospitalManagement.exceptions.ResourseNotFoundException;
 import com.codingshuttle.youtube.hospitalManagement.repository.PatientRepository;
+import com.codingshuttle.youtube.hospitalManagement.service.InsuranceService;
 import com.codingshuttle.youtube.hospitalManagement.service.PatientService;
 import org.springframework.transaction.annotation.Transactional;
 import jakarta.validation.Valid;
@@ -21,13 +21,29 @@ import java.util.stream.Collectors;
 public class PatientServiceImpl implements PatientService {
 
     private final PatientRepository patientRepository;
-    public final ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
+    private final InsuranceService insuranceService;
+
     @Transactional(readOnly = true)
     @Override
-    public PatientResponseDto getPatientById(Long id){
-        Patient p1 =   patientRepository.findById(id).orElseThrow(()->new ResourseNotFoundException("Patient not found with id "+id));
+    public PatientResponseDto getPatientById(Long patientId){
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(()->new ResourseNotFoundException("Patient not found with Id "+patientId));
+        return modelMapper.map(patient,PatientResponseDto.class);
+    }
 
-        return modelMapper.map(p1,PatientResponseDto.class);
+    @Override
+    public PatientResponseDto getPatientByPublicId(String patientPublicId) {
+        Patient patient = getPatientEntityByPublicId(patientPublicId);
+
+        return modelMapper.map(patient,PatientResponseDto.class);
+    }
+
+    @Override
+    public Patient getPatientEntityByPublicId(String patientPublicId) {
+        Patient patient = patientRepository.findByPublicId(patientPublicId)
+                .orElseThrow(()->new ResourseNotFoundException("Patient not found with publicId "+patientPublicId));
+        return patient;
     }
 
 //    public void deleteById(long id) {
@@ -57,15 +73,15 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     @Transactional
-    public void deletePatientById(Long id) {
-        Patient patient = patientRepository.findById(id).orElseThrow(()->new ResourseNotFoundException("Patient not found with id "+id));
+    public void deletePatientByPublicId(String patientPublicId) {
+        Patient patient = getPatientEntityByPublicId(patientPublicId);
         patientRepository.delete(patient);
     }
 
     @Override
     @Transactional
-    public PatientResponseDto updatePatient(Long id, PatientCreateDto updatePatientRequestDto) {
-        Patient patient = patientRepository.findById(id).orElseThrow(()->new ResourseNotFoundException("Patient not found with id "+id));
+    public PatientResponseDto updatePatient(String patientPublicId, PatientCreateDto updatePatientRequestDto) {
+        Patient patient = getPatientEntityByPublicId(patientPublicId);
         modelMapper.map( updatePatientRequestDto,patient);
 
         return modelMapper.map(patient,PatientResponseDto.class);
@@ -73,10 +89,48 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     @Transactional
-    public PatientResponseDto updatePartialPatient(Long id, PatientUpdateDto updatePartialPatientRequestDto) {
-        Patient patient = patientRepository.findById(id).orElseThrow(()->new ResourseNotFoundException("Patient not found with id "+id));
+    public PatientResponseDto updatePartialPatient(String patientPublicId, PatientUpdateDto updatePartialPatientRequestDto) {
+        Patient patient = getPatientEntityByPublicId(patientPublicId);
         modelMapper.map( updatePartialPatientRequestDto,patient);
 
         return modelMapper.map(patient,PatientResponseDto.class);
+    }
+
+    @Override
+    public InsuranceResponseDto assignInsurance(String patientPublicId, InsuranceCreateDto assignInsuranceRequestDto) {
+        Patient patient = getPatientEntityByPublicId(patientPublicId);
+        return insuranceService.createInsurance(patient,assignInsuranceRequestDto);
+    }
+
+    @Override
+    public InsuranceResponseDto dissociateInsurance(String patientPublicId) {
+        Patient patient = getPatientEntityByPublicId(patientPublicId);
+        return insuranceService.removeInsurance(patient);
+    }
+
+    @Override
+    public InsuranceResponseDto updateInsurance(String patientPublicId, InsuranceCreateDto updateInsuranceRequestDto) {
+        Patient patient = getPatientEntityByPublicId(patientPublicId);
+        return insuranceService.updateInsurance(patient,updateInsuranceRequestDto);
+
+    }
+
+    @Override
+    public InsuranceResponseDto partialUpdateInsurance(String patientPublicId, InsuranceUpdateDto partilUpdateInsuranceRequestDto){
+        Patient patient = getPatientEntityByPublicId(patientPublicId);
+        return insuranceService.partialUpdateInsurance(patient,partilUpdateInsuranceRequestDto);
+    }
+
+    @Override
+    public InsuranceResponseDto getInsuranceOfPatient(String patientPublicId) {
+        Patient patient = getPatientEntityByPublicId(patientPublicId);
+        return insuranceService.getInsuranceOfPatient(patient);
+    }
+
+    @Override
+    public Insurance getInsuranceEntityByPatient(String patientPublicId) {
+        Patient patient = getPatientEntityByPublicId(patientPublicId);
+
+        return insuranceService.getInsuranceEntityByPatient(patient);
     }
 }
