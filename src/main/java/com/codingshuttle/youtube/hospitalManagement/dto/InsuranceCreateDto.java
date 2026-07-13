@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 @Data
-public class InsuranceRequestDTO {
+public class InsuranceRequestDto {
     @NotBlank(message = "Policy number is required")
     @Size(min = 8,max = 50,message = "Policy number should be in range 8 to 50 characters")
     private String policyNumber;

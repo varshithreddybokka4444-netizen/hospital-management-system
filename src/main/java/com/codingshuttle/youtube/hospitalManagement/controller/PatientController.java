@@ -1,8 +1,6 @@
 package com.codingshuttle.youtube.hospitalManagement.controller;
 
-import com.codingshuttle.youtube.hospitalManagement.dto.PatientCreateDto;
-import com.codingshuttle.youtube.hospitalManagement.dto.PatientResponseDto;
-import com.codingshuttle.youtube.hospitalManagement.dto.PatientUpdateDto;
+import com.codingshuttle.youtube.hospitalManagement.dto.*;
 import com.codingshuttle.youtube.hospitalManagement.service.PatientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,31 +27,60 @@ public class PatientController {
     public ResponseEntity<PatientResponseDto> createNewPatient(@RequestBody @Valid PatientCreateDto addPatientRequestDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(patientService.registerNewPatient(addPatientRequestDto));
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<PatientResponseDto> getPatientById(@PathVariable Long id){
-        return ResponseEntity.ok(patientService.getPatientById(id));
+    @GetMapping("/{publicId}")
+    public ResponseEntity<PatientResponseDto> getPatientByPublicId(@PathVariable String publicId){
+        return ResponseEntity.ok(patientService.getPatientByPublicId(publicId));
     }
     @GetMapping
     public ResponseEntity<List<PatientResponseDto>> getAllPatients(){
         return ResponseEntity.ok(patientService.getAllPatients());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePatientById(@PathVariable Long id){
-        patientService.deletePatientById(id);
+    @DeleteMapping("/{publicId}")
+    public ResponseEntity<Void> deletePatientById(@PathVariable String publicId){
+        patientService.deletePatientByPublicId( publicId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<PatientResponseDto> updatepatient(@PathVariable Long id,
-                                                    @RequestBody PatientCreateDto addPatientRequestDto){
-        return ResponseEntity.ok(patientService.updatePatient(id,addPatientRequestDto));
+    @PutMapping("/{publicId}")
+    public ResponseEntity<PatientResponseDto> updatepatient(@PathVariable String publicId,
+                                                    @RequestBody @Valid  PatientCreateDto addPatientRequestDto){
+        return ResponseEntity.ok(patientService.updatePatient(publicId,addPatientRequestDto));
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<PatientResponseDto> updatePartialPatient(@PathVariable Long id,
-                                                                   @RequestBody PatientUpdateDto updatePartialPatientRequestDto){
+    @PostMapping("/{publicId}")
+    public ResponseEntity<PatientResponseDto> updatePartialPatient(@PathVariable String publicId,
+                                                                   @RequestBody @Valid PatientUpdateDto updatePartialPatientRequestDto){
 
-        return ResponseEntity.ok(patientService.updatePartialPatient(id,updatePartialPatientRequestDto));
+        return ResponseEntity.ok(patientService.updatePartialPatient(publicId,updatePartialPatientRequestDto));
+    }
+
+    @PostMapping
+    public ResponseEntity<InsuranceResponseDto>  assignInsurance(@PathVariable String publicId,
+                                                                 @RequestBody @Valid  InsuranceCreateDto assignInsuranceRequestDto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(patientService.assignInsurance(publicId,assignInsuranceRequestDto));
+    }
+
+    @DeleteMapping("/{publicId}")
+    public ResponseEntity<Void> dissociateInsuranceOfPatientByPublicId(@PathVariable String patientPublicId){
+        patientService.dissociateInsurance(patientPublicId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PutMapping("/{publicId}")
+    public ResponseEntity<InsuranceResponseDto> updateInsuranceOfPatientByPublicid(@PathVariable String publicId,
+                                                                                   @RequestBody @Valid  InsuranceCreateDto updateInsuranceRequestDto){
+        return ResponseEntity.ok(patientService.updateInsurance(publicId,updateInsuranceRequestDto));
+    }
+
+    @PatchMapping("/{publicId}")
+    public ResponseEntity<InsuranceResponseDto> partialUpdateInsuranceOfPatientByPublicid(@PathVariable String publicId,
+                                                                                   @RequestBody @Valid  InsuranceUpdateDto partialUpdateInsuranceRequestDto){
+        return ResponseEntity.ok(patientService.partialUpdateInsurance(publicId,partialUpdateInsuranceRequestDto));
+    }
+
+    @GetMapping("/{publicId}")
+    public ResponseEntity<InsuranceResponseDto> getInsuranceOfPatientByPublicId(@PathVariable String publicId){
+        return ResponseEntity.ok(patientService.getInsuranceOfPatient(publicId));
     }
 
 }
