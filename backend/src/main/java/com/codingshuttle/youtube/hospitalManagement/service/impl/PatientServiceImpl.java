@@ -3,7 +3,7 @@ package com.codingshuttle.youtube.hospitalManagement.service.impl;
 import com.codingshuttle.youtube.hospitalManagement.dto.*;
 import com.codingshuttle.youtube.hospitalManagement.entity.Insurance;
 import com.codingshuttle.youtube.hospitalManagement.entity.Patient;
-import com.codingshuttle.youtube.hospitalManagement.exceptions.ResourceNotFoundException;
+import com.codingshuttle.youtube.hospitalManagement.exception.ResourceNotFoundException;
 import com.codingshuttle.youtube.hospitalManagement.repository.PatientRepository;
 import com.codingshuttle.youtube.hospitalManagement.service.InsuranceService;
 import com.codingshuttle.youtube.hospitalManagement.service.PatientService;

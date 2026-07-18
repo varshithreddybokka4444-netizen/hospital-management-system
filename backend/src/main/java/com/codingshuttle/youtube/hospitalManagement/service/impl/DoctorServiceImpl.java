@@ -4,7 +4,7 @@ import com.codingshuttle.youtube.hospitalManagement.dto.DoctorCreateDto;
 import com.codingshuttle.youtube.hospitalManagement.dto.DoctorResponseDto;
 import com.codingshuttle.youtube.hospitalManagement.dto.DoctorUpdateDto;
 import com.codingshuttle.youtube.hospitalManagement.entity.Doctor;
-import com.codingshuttle.youtube.hospitalManagement.exceptions.ResourceNotFoundException;
+import com.codingshuttle.youtube.hospitalManagement.exception.ResourceNotFoundException;
 import com.codingshuttle.youtube.hospitalManagement.repository.DoctorRepository;
 import com.codingshuttle.youtube.hospitalManagement.service.DoctorService;
 import lombok.RequiredArgsConstructor;

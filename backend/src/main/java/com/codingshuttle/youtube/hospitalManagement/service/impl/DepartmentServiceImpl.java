@@ -5,7 +5,7 @@ import com.codingshuttle.youtube.hospitalManagement.dto.DepartmentUpdateDto;
 import com.codingshuttle.youtube.hospitalManagement.dto.DepartmentResponseDto;
 import com.codingshuttle.youtube.hospitalManagement.entity.Department;
 import com.codingshuttle.youtube.hospitalManagement.entity.Doctor;
-import com.codingshuttle.youtube.hospitalManagement.exceptions.ResourceNotFoundException;
+import com.codingshuttle.youtube.hospitalManagement.exception.ResourceNotFoundException;
 import com.codingshuttle.youtube.hospitalManagement.repository.DepartmentRepository;
 import com.codingshuttle.youtube.hospitalManagement.service.DepartmentService;
 import com.codingshuttle.youtube.hospitalManagement.service.DoctorService;

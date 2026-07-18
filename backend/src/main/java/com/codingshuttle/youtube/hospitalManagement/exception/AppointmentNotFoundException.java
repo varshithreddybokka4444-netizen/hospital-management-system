@@ -1,4 +1,4 @@
-package com.codingshuttle.youtube.hospitalManagement.exceptions;
+package com.codingshuttle.youtube.hospitalManagement.exception;
 
 public class AppointmentNotFoundException extends RuntimeException{
     public AppointmentNotFoundException(String message) {

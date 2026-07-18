@@ -2,6 +2,7 @@ package com.codingshuttle.youtube.hospitalManagement.controller;
 
 import com.codingshuttle.youtube.hospitalManagement.dto.AppointmentCreateDto;
 import com.codingshuttle.youtube.hospitalManagement.dto.AppointmentResponseDto;
+import com.codingshuttle.youtube.hospitalManagement.dto.AppointmentUpdateDto;
 import com.codingshuttle.youtube.hospitalManagement.entity.Appointment;
 import com.codingshuttle.youtube.hospitalManagement.service.AppointmentService;
 import jakarta.validation.Valid;
@@ -36,10 +37,14 @@ public class AppointmentController {
     }
 
     @PutMapping("/publicId")
-    public ResponseEntity<AppointmentResponseDto> updateAppoinment(@PathVariable String publicId,@RequestBody @Valid AppointmentCreateDto UpdateAppointmentRequestDto){
-        return ResponseEntity.ok(appointmentService.updateAppointment(publicId,UpdateAppointmentRequestDto));
+    public ResponseEntity<AppointmentResponseDto> updateAppoinment(@PathVariable String publicId,@RequestBody @Valid AppointmentCreateDto updateAppointmentRequestDto){
+        return ResponseEntity.ok(appointmentService.updateAppointment(publicId,updateAppointmentRequestDto));
     }
 
+    @PatchMapping("/publicId")
+    public ResponseEntity<AppointmentResponseDto> partialUpdateAppointment(@PathVariable String publicId,@RequestBody @Valid AppointmentUpdateDto partialUpdateAppointmentRequestDto){
+        return ResponseEntity.ok(appointmentService.partialUpdateAppointment(publicId,partialUpdateAppointmentRequestDto));
+    }
 
     @DeleteMapping("/publicId")
     public ResponseEntity<Void> cancelAppointment(@PathVariable String publicId){

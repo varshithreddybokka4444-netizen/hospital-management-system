@@ -2,6 +2,7 @@ package com.codingshuttle.youtube.hospitalManagement.service;
 
 import com.codingshuttle.youtube.hospitalManagement.dto.AppointmentCreateDto;
 import com.codingshuttle.youtube.hospitalManagement.dto.AppointmentResponseDto;
+import com.codingshuttle.youtube.hospitalManagement.dto.AppointmentUpdateDto;
 import jakarta.validation.Valid;
 import org.jspecify.annotations.Nullable;
 
@@ -18,4 +19,6 @@ public interface AppointmentService {
     AppointmentResponseDto updateAppointment(String publicId, @Valid AppointmentCreateDto updateAppointmentRequestDto);
 
     void cancelAppointmentByPublicId(String publicId);
+
+    AppointmentResponseDto partialUpdateAppointment(String publicId, @Valid AppointmentUpdateDto partialUpdateAppointmentRequestDto);
 }

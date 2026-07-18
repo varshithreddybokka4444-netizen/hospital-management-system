@@ -2,10 +2,11 @@ package com.codingshuttle.youtube.hospitalManagement.service.impl;
 
 import com.codingshuttle.youtube.hospitalManagement.dto.AppointmentCreateDto;
 import com.codingshuttle.youtube.hospitalManagement.dto.AppointmentResponseDto;
+import com.codingshuttle.youtube.hospitalManagement.dto.AppointmentUpdateDto;
 import com.codingshuttle.youtube.hospitalManagement.entity.Appointment;
 import com.codingshuttle.youtube.hospitalManagement.entity.Doctor;
 import com.codingshuttle.youtube.hospitalManagement.entity.Patient;
-import com.codingshuttle.youtube.hospitalManagement.exceptions.ResourceNotFoundException;
+import com.codingshuttle.youtube.hospitalManagement.exception.ResourceNotFoundException;
 import com.codingshuttle.youtube.hospitalManagement.repository.AppointmentRepository;
 import com.codingshuttle.youtube.hospitalManagement.service.AppointmentService;
 import com.codingshuttle.youtube.hospitalManagement.service.DoctorService;
@@ -82,6 +83,14 @@ public class AppointmentServiceImpl implements AppointmentService {
     public void cancelAppointmentByPublicId(String publicId) {
         Appointment appointment = getAppointmentEntityByPublicId(publicId);
         appointmentRepository.delete(appointment);
+    }
+
+    @Override
+    @Transactional
+    public AppointmentResponseDto partialUpdateAppointment(String publicId, AppointmentUpdateDto partialUpdateAppointmentRequestDto) {
+        Appointment appointment = getAppointmentEntityByPublicId(publicId);
+        modelMapper.map(partialUpdateAppointmentRequestDto,appointment);
+        return modelMapper.map(appointment,AppointmentResponseDto.class);
     }
 
 
