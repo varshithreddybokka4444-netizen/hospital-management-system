@@ -1,4 +1,7 @@
 package com.codingshuttle.youtube.hospitalManagement.exceptions;
 
-public class InsuranceNotFoundExceptiom {
+public class InsuranceNotFoundException extends RuntimeException{
+    public InsuranceNotFoundException(String message) {
+        super(message);
+    }
 }
