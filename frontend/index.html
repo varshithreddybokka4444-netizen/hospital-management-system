@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+<div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-hospital"></i>
+            <h2>Hospital Management System</h2>
+        </div>
+        <ul>
+            <li class="active">
+                <i class="fa-solid fa-house"></i>
+                Dashboard
+            </li>
+            <li>
+                <i class="fa-solid fa-user-injured"></i>
+                Patients
+            </li>
+            <li>
+                <i class ="fa-solid fa-user-doctor"></i>
+                Doctors
+            </li>
+            <li>
+                <i class ="fa-solid fa-building"></i>
+                Departments
+            </li>
+            <li>
+                <i class ="fa-solid fa-calendar-check"></i>
+                Appoinments
+            </li>
+        </ul>
+    </div>
+    <!-- Main Content -->
+    <div class="main">
+        <header>
+            <div class="profile">
+                <i class="fa-solid fa-bell"></i>
+                <i class="fa-solid fa-circle-user"></i>
+                <span>Admin</span>
+            </div>
+        </header>
+        <div class="welcome">
+            <h2>Welcome Back 👋</h2>
+            <p>Manage your hospital efficiently.</p>
+        </div>
+        <!-- Cards -->
+        <div class="cards">
+            <div class="card">
+                <i class="fa-solid fa-user-injured"></i>
+                <h3>Patients</h3>
+                <h1 id="patients">0</h1>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-user-doctor"></i>
+                <h3>Doctors</h3>
+                <h1 id="doctors">0</h1>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-building"></i>
+                <h3>Departments</h3>
+                <h1 id="departments">0</h1>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-calendar-check"></i>
+                <h3>Appointments</h3>
+                <h1 id="appointments">0</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/dashboard.js"></script>
+</body>
+</html>
