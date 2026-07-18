@@ -1,4 +1,4 @@
 package com.codingshuttle.youtube.hospitalManagement.service;
 
-public class AppointmentService {
+public interface AppointmentService {
 }

@@ -1,6 +1,5 @@
 package com.codingshuttle.youtube.hospitalManagement.dto;
 
-import com.codingshuttle.youtube.hospitalManagement.entity.Patient;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Data
-public class AppointmentRequestDTO {
+public class AppointmentRequestDto {
 
     @NotBlank(message = "Patient publicid is required")
     private String patientPublicId;

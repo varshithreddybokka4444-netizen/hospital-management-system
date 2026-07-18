@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +30,21 @@ public class DoctorServiceImpl implements DoctorService {
 
         return modelMapper.map(doctor,DoctorResponseDto.class);
     }
+
+    @Override
+    public Doctor getDoctorEntityByPublicId(String publicId) {
+
+
+        return doctorRepository.findByPublicId(publicId)
+                .orElseThrow(() -> new ResourseNotFoundException("Doctor not found with publicId " + publicId));
+    }
+
+    @Override
+    public DoctorResponseDto getDoctorByPublicId(String publicId) {
+
+        return modelMapper.map(getDoctorEntityByPublicId(publicId),DoctorResponseDto.class);
+    }
+
 
     @Override
     public DoctorResponseDto registerNewDoctor(DoctorCreateDto addDoctorRequest) {
@@ -55,18 +69,18 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     @Transactional
-    public void deleteDoctorById(Long id) {
-        Doctor doctor = doctorRepository.findById(id)
-                .orElseThrow(()->new ResourseNotFoundException("Doctor not found with id "+id));
+    public void deleteDoctorByPublicId(String publicId) {
+        Doctor doctor = doctorRepository.findByPublicId(publicId)
+                .orElseThrow(()->new ResourseNotFoundException("Doctor not found with publicId "+publicId));
         doctorRepository.delete(doctor);
 
     }
 
     @Override
     @Transactional
-    public DoctorResponseDto updateDoctor(Long id, DoctorCreateDto doctorUpdateRequest) {
-        Doctor doctor = doctorRepository.findById(id)
-                .orElseThrow(()->new ResourseNotFoundException("Doctor not found with id "+id));
+    public DoctorResponseDto updateDoctor(String publicId, DoctorCreateDto doctorUpdateRequest) {
+        Doctor doctor = doctorRepository.findByPublicId(publicId)
+                .orElseThrow(()->new ResourseNotFoundException("Doctor not found with publicId "+publicId));
 
         modelMapper.map(doctor,doctorUpdateRequest);
         return modelMapper.map(doctor,DoctorResponseDto.class);
@@ -74,13 +88,15 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     @Transactional
-    public DoctorResponseDto updatePartialDoctor(Long id, DoctorUpdateDto updatePartialDoctorUpdateDto) {
-        Doctor doctor = doctorRepository.findById(id)
-                .orElseThrow(()->new ResourseNotFoundException("Doctor not found with id "+id));
+    public DoctorResponseDto updatePartialDoctor(String publicId, DoctorUpdateDto updatePartialDoctorUpdateDto) {
+        Doctor doctor = doctorRepository.findByPublicId(publicId)
+                .orElseThrow(()->new ResourseNotFoundException("Doctor not found with publicId "+publicId));
 
         modelMapper.map(doctor,updatePartialDoctorUpdateDto);
         return modelMapper.map(doctor,DoctorResponseDto.class);
     }
+
+
 
 
 }

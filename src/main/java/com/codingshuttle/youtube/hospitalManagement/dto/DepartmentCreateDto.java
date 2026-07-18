@@ -1,16 +1,15 @@
 package com.codingshuttle.youtube.hospitalManagement.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
-public class DepartmentRequestDTO {
+@Getter
+@Setter
+public class DepartmentCreateDto {
 
     @NotBlank(message = "Name is Required")
     private String name;

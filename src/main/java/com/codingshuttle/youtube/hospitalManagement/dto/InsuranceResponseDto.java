@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class InsuranceResponseDTO {
+public class InsuranceResponseDto {
     private String publicId;
 
     private String policyNumber;
