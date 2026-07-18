@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 @Data
-public class PatientRequestDto {
+public class PatientcreateDto {
 
     @NotBlank(message = "Name is Required")
     @Size(min = 3, max = 30, message = "Name should be of length 3 to 30 characters")

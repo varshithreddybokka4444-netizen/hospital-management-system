@@ -11,14 +11,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-public class DoctorRequestDto {
-    @NotBlank(message = "Name is required")
+public class DoctorUpdateDto {
     private String name;
 
-    @NotBlank(message = "Specialisation is required")
+
     private String specialisation;
 
-    @NotBlank(message = "Please provide a valid email address")
+    
     @Email
     private String email;
 }

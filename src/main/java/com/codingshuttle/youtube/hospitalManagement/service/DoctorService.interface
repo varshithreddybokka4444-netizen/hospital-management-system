@@ -1,0 +1,14 @@
+package package com.codingshuttle.youtube.hospitalManagement.service;
+
+Interface DoctorService{
+    Optional<DoctorResponseDto> getDoctorById(Long id);
+
+    DoctorResponseDto registerNewDoctor(DoctorRequestDto doctor);
+    
+    List<DoctorResponseDto> getAllDoctors();
+    
+    void deleteDoctorById(Long id);
+
+    Optional<DoctorResponseDto> updateDoctor()
+    
+}
