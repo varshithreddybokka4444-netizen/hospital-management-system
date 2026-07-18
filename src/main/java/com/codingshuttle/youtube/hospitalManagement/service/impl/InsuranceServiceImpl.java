@@ -1,4 +1,4 @@
-package com.codingshuttle.youtube.hospitalManagement.service;
+package com.codingshuttle.youtube.hospitalManagement.service.impl;
 
 import com.codingshuttle.youtube.hospitalManagement.entity.Insurance;
 import com.codingshuttle.youtube.hospitalManagement.entity.Patient;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class InsuranceService {
+public class InsuranceServiceImpl {
 
     private final InsuranceRepository insuranceRepository;
     private final PatientRepository patientRepository;

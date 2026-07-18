@@ -1,4 +1,4 @@
-package com.codingshuttle.youtube.hospitalManagement.service;
+package com.codingshuttle.youtube.hospitalManagement.service.impl;
 
 import com.codingshuttle.youtube.hospitalManagement.entity.Appointment;
 import com.codingshuttle.youtube.hospitalManagement.entity.Doctor;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class AppointmentService {
+public class AppointmentServiceImpl {
 
     private final AppointmentRepository appointmentRepository;
     private final DoctorRepository doctorRepository;

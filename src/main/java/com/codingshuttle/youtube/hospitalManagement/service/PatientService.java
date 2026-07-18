@@ -2,37 +2,24 @@ package com.codingshuttle.youtube.hospitalManagement.service;
 
 import com.codingshuttle.youtube.hospitalManagement.dto.PatientRequestDto;
 import com.codingshuttle.youtube.hospitalManagement.dto.PatientResponseDto;
-import com.codingshuttle.youtube.hospitalManagement.entity.Patient;
-import com.codingshuttle.youtube.hospitalManagement.repository.PatientRepository;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.Nullable;
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
 
-@Service
-@RequiredArgsConstructor
-public class PatientService {
+import java.util.List;
+import java.util.Optional;
 
-    private final PatientRepository patientRepository;
-    public final ModelMapper modelMapper;
-    @Transactional
-    public Patient getPatientById(Long id){
-        Patient p1 = patientRepository.findById(id).orElseThrow();
+public interface PatientService {
+    //Optional<PatientResponseDto> registerNewPatient(PatientRequestDto);
+    Optional<PatientResponseDto> getPatientById(Long id);
 
-        return p1;
-    }
 
-    public void deleteById(long id) {
-        patientRepository.deleteById(id);
-    }
+     PatientResponseDto registerNewPatient(@Valid PatientRequestDto addPatientRequestDto);
 
-  public @Nullable PatientResponseDto registerNewPatient(@Valid PatientRequestDto addPatientRequestDto) {
 
-        Patient newPatient = modelMapper.map(addPatientRequestDto,Patient.class);
-        Patient patient = patientRepository.save(newPatient);
+    List<PatientResponseDto> getAllPatients();
 
-      return modelMapper.map(patient, PatientResponseDto.class);
-  }
+
+    void deletePatientById(Long id);
+
+     PatientResponseDto updatePatient(Long id, PatientRequestDto addPatientRequestDto);
 }

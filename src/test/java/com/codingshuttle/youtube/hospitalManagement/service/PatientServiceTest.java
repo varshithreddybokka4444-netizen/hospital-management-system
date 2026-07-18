@@ -2,6 +2,7 @@ package com.codingshuttle.youtube.hospitalManagement.service;
 
 import com.codingshuttle.youtube.hospitalManagement.dto.PatientRequestDto;
 import com.codingshuttle.youtube.hospitalManagement.dto.PatientResponseDto;
+import com.codingshuttle.youtube.hospitalManagement.service.impl.PatientServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +15,7 @@ import static com.codingshuttle.youtube.hospitalManagement.entity.type.BloodGrou
 class PatientServiceTest {
 
     @Autowired
-    PatientService patientService;
+    PatientServiceImpl patientService;
 
     @Test
     public void testPatientRegistrationMethod(){

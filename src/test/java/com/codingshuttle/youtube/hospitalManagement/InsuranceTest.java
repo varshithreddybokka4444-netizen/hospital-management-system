@@ -3,9 +3,9 @@ package com.codingshuttle.youtube.hospitalManagement;
 import com.codingshuttle.youtube.hospitalManagement.entity.Appointment;
 import com.codingshuttle.youtube.hospitalManagement.entity.Insurance;
 import com.codingshuttle.youtube.hospitalManagement.entity.Patient;
-import com.codingshuttle.youtube.hospitalManagement.service.AppointmentService;
-import com.codingshuttle.youtube.hospitalManagement.service.InsuranceService;
-import com.codingshuttle.youtube.hospitalManagement.service.PatientService;
+import com.codingshuttle.youtube.hospitalManagement.service.impl.AppointmentServiceImpl;
+import com.codingshuttle.youtube.hospitalManagement.service.impl.InsuranceServiceImpl;
+import com.codingshuttle.youtube.hospitalManagement.service.impl.PatientServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,13 +18,13 @@ public class InsuranceTest {
 
 
     @Autowired
-    private InsuranceService insuranceService;
+    private InsuranceServiceImpl insuranceService;
 
     @Autowired
-    AppointmentService appointmentService;
+    AppointmentServiceImpl appointmentService;
 
     @Autowired
-    PatientService patientService;
+    PatientServiceImpl patientService;
 
     @Test
     public void testInsurance(){
@@ -87,7 +87,7 @@ public class InsuranceTest {
         System.out.println(appointment3);
 
 
-        patientService.deleteById(4L);
+        patientService.deletePatientById(4L);
     }
 
 
