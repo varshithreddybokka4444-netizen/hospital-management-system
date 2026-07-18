@@ -3,7 +3,6 @@ package com.codingshuttle.youtube.hospitalManagement.controller;
 import com.codingshuttle.youtube.hospitalManagement.dto.DepartmentCreateDto;
 import com.codingshuttle.youtube.hospitalManagement.dto.DepartmentUpdateDto;
 import com.codingshuttle.youtube.hospitalManagement.dto.DepartmentResponseDto;
-import com.codingshuttle.youtube.hospitalManagement.dto.DepartmentUpdateDto;
 import com.codingshuttle.youtube.hospitalManagement.service.DepartmentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,36 +27,37 @@ public class DepartmentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(departmentService.createNewDepartment(addDepartmentRequestDto));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{publicId}")
     public ResponseEntity<DepartmentResponseDto> getDepartmentByPublicId(@PathVariable String publicId){
-        return ResponseEntity.ok(departmentService.getDepartmentById(publicId));
+        return ResponseEntity.ok(departmentService.getDepartmentByPublicId(publicId));
     }
     @GetMapping
     public ResponseEntity<List<DepartmentResponseDto>> getAllDepartments(){
         return ResponseEntity.ok(departmentService.getAllDepartments());
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{publicId}")
         public ResponseEntity<DepartmentResponseDto>
-                updateDepartment(@PathVariable Long id,@RequestBody DepartmentUpdateDto updateDepartmentRequestDto){
-        return ResponseEntity.ok(departmentService.updateDepartment(id,updateDepartmentRequestDto));
+                updateDepartment(@PathVariable String publicId,@RequestBody DepartmentUpdateDto updateDepartmentRequestDto){
+        return ResponseEntity.ok(departmentService.updateDepartment(publicId,updateDepartmentRequestDto));
         }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/{publicId}")
     public ResponseEntity<DepartmentResponseDto>
-    updatePartialDepartment(@PathVariable Long id,@RequestBody DepartmentUpdateDto partialUpdatepDepartmentRequestDto) {
-        return ResponseEntity.ok(departmentService.updatePartialDepartment(id, partialUpdatepDepartmentRequestDto));
+    updatePartialDepartment(@PathVariable String publicId,@RequestBody DepartmentUpdateDto partialUpdatepDepartmentRequestDto) {
+        return ResponseEntity.ok(departmentService.updatePartialDepartment(publicId, partialUpdatepDepartmentRequestDto));
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/{publicId}")
     public ResponseEntity<DepartmentResponseDto>
-    assignNewHeadDoctor(@PathVariable Long id,@RequestBody DepartmentUpdateDto addNewHeadDoctorRequest) {
-        return ResponseEntity.ok(departmentService.changeHeadDoctor(id, addNewHeadDoctorRequest));
+    assignNewHeadDoctor(@PathVariable String publicId,@RequestBody DepartmentUpdateDto addNewHeadDoctorRequest) {
+        return ResponseEntity.ok(departmentService.changeHeadDoctor(publicId, addNewHeadDoctorRequest));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{publicId}")
     public ResponseEntity<Void> deleteDepartmentByPublicId(@PathVariable String publicId){
-
+        departmentService.deleteDepartmentByPublicId(publicId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     }

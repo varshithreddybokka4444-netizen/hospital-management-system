@@ -5,7 +5,7 @@ import com.codingshuttle.youtube.hospitalManagement.dto.DepartmentUpdateDto;
 import com.codingshuttle.youtube.hospitalManagement.dto.DepartmentResponseDto;
 import com.codingshuttle.youtube.hospitalManagement.entity.Department;
 import com.codingshuttle.youtube.hospitalManagement.entity.Doctor;
-import com.codingshuttle.youtube.hospitalManagement.exceptions.ResourseNotFoundException;
+import com.codingshuttle.youtube.hospitalManagement.exceptions.ResourceNotFoundException;
 import com.codingshuttle.youtube.hospitalManagement.repository.DepartmentRepository;
 import com.codingshuttle.youtube.hospitalManagement.service.DepartmentService;
 import com.codingshuttle.youtube.hospitalManagement.service.DoctorService;
@@ -38,7 +38,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     public DepartmentResponseDto getDepartmentByPublicId(String publicId) {
         Department department = departmentRepository.findByPublicId(publicId).orElseThrow(()->
-                new ResourseNotFoundException("Department not found with id "+publicId));
+                new ResourceNotFoundException("Department not found with id "+publicId));
 
         Doctor doctor = doctorService.getDoctorEntityByPublicId(publicId);
 
@@ -52,7 +52,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         List<Department> departments = departmentRepository.findAll();
 
         if(departments.isEmpty()){
-            throw new ResourseNotFoundException("No departments found");
+            throw new ResourceNotFoundException("No departments found");
         }
 
         return departments.stream()
@@ -65,7 +65,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public DepartmentResponseDto updateDepartment(String publicId, DepartmentUpdateDto updateDepartmentRequestDto) {
 
         Department department = departmentRepository.findByPublicId(publicId).orElseThrow(()->
-                new ResourseNotFoundException("Department not found with id "+publicId));
+                new ResourceNotFoundException("Department not found with id "+publicId));
         Doctor doctor = modelMapper.map
                 (doctorService.getDoctorByPublicId(updateDepartmentRequestDto.getHeadDoctorPublicId()),Doctor.class);
         department.getDoctors().add(doctor);
@@ -81,7 +81,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public DepartmentResponseDto updatePartialDepartment(String publicId, DepartmentUpdateDto partialUpdatepDepartmentRequestDto) {
 
         Department department = departmentRepository.findByPublicId(publicId).orElseThrow(()->
-                new ResourseNotFoundException("Department not found with publicId "+publicId));
+                new ResourceNotFoundException("Department not found with publicId "+publicId));
         modelMapper.map(department,partialUpdatepDepartmentRequestDto);
 
         if(partialUpdatepDepartmentRequestDto.getHeadDoctorPublicId()!=null){
@@ -97,7 +97,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Transactional
     public DepartmentResponseDto changeHeadDoctor(String publicId, DepartmentUpdateDto addNewHeadDoctorRequestDto) {
         Department department = departmentRepository.findByPublicId(publicId).orElseThrow(()->
-                new ResourseNotFoundException("Department not found with publicId "+publicId));
+                new ResourceNotFoundException("Department not found with publicId "+publicId));
         Doctor doctor = modelMapper.map(doctorService.getDoctorByPublicId(addNewHeadDoctorRequestDto.getHeadDoctorPublicId()),Doctor.class);
         department.getDoctors().add(doctor);
 
@@ -105,6 +105,12 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     }
 
+    @Override
+    public void deleteDepartmentByPublicId(String publicId) {
+        Department department = departmentRepository.findByPublicId(publicId).orElseThrow(()->
+                new ResourceNotFoundException("Department not found with publicId "+publicId));
+        departmentRepository.delete(department);
+    }
 
 
 }

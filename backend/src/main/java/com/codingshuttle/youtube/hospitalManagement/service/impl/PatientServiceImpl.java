@@ -3,7 +3,7 @@ package com.codingshuttle.youtube.hospitalManagement.service.impl;
 import com.codingshuttle.youtube.hospitalManagement.dto.*;
 import com.codingshuttle.youtube.hospitalManagement.entity.Insurance;
 import com.codingshuttle.youtube.hospitalManagement.entity.Patient;
-import com.codingshuttle.youtube.hospitalManagement.exceptions.ResourseNotFoundException;
+import com.codingshuttle.youtube.hospitalManagement.exceptions.ResourceNotFoundException;
 import com.codingshuttle.youtube.hospitalManagement.repository.PatientRepository;
 import com.codingshuttle.youtube.hospitalManagement.service.InsuranceService;
 import com.codingshuttle.youtube.hospitalManagement.service.PatientService;
@@ -28,7 +28,7 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public PatientResponseDto getPatientById(Long patientId){
         Patient patient = patientRepository.findById(patientId)
-                .orElseThrow(()->new ResourseNotFoundException("Patient not found with Id "+patientId));
+                .orElseThrow(()->new ResourceNotFoundException("Patient not found with Id "+patientId));
         return modelMapper.map(patient,PatientResponseDto.class);
     }
 
@@ -42,7 +42,7 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public Patient getPatientEntityByPublicId(String patientPublicId) {
         Patient patient = patientRepository.findByPublicId(patientPublicId)
-                .orElseThrow(()->new ResourseNotFoundException("Patient not found with publicId "+patientPublicId));
+                .orElseThrow(()->new ResourceNotFoundException("Patient not found with publicId "+patientPublicId));
         return patient;
     }
 
@@ -64,7 +64,7 @@ public class PatientServiceImpl implements PatientService {
         List<Patient> patients = patientRepository.findAll();
 
         if(patients.isEmpty()){
-            throw new ResourseNotFoundException("No patients found");
+            throw new ResourceNotFoundException("No patients found");
         }
         return patients.stream()
                 .map(patient->modelMapper.map(patient,PatientResponseDto.class))
