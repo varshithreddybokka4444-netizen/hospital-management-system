@@ -1,6 +1,6 @@
 package com.codingshuttle.youtube.hospitalManagement.service;
 
-import com.codingshuttle.youtube.hospitalManagement.dto.PatientRequestDto;
+import com.codingshuttle.youtube.hospitalManagement.dto.PatientCreateDto;
 import com.codingshuttle.youtube.hospitalManagement.dto.PatientResponseDto;
 import com.codingshuttle.youtube.hospitalManagement.service.impl.PatientServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ class PatientServiceTest {
 
     @Test
     public void testPatientRegistrationMethod(){
-        PatientRequestDto newRequest = PatientRequestDto.builder()
+        PatientCreateDto newRequest = PatientCreateDto.builder()
                 .name("Ravi")
                 .birthDate(LocalDate.of(1988,2,2))
                 .email("ravi@gmail.com")
