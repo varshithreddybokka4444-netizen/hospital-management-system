@@ -1,6 +1,7 @@
 package com.codingshuttle.youtube.hospitalManagement.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -19,6 +20,9 @@ public class Insurance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true, updatable = false, length = 12)
+    private String publicId ;
+
 
     @Column(nullable = false, unique = true, length = 58)
     private String policyNumber;
@@ -26,7 +30,7 @@ public class Insurance {
     @Column(nullable = false, length = 100)
     private String provider;
 
-    @Column(nullable = false)
+    @NotNull(message = "Expire date is required")
     private LocalDate validUntil;
 
     @CreationTimestamp
@@ -36,5 +40,11 @@ public class Insurance {
     @OneToOne(mappedBy = "insurance")//inverse side
     private Patient patient;
 
+    @PrePersist
+    protected void onCreate(){
+        if(this.publicId==null){
+            this.publicId = java.util.UUID.randomUUID().toString().substring(0,8);
+        }
+    }
 
 }

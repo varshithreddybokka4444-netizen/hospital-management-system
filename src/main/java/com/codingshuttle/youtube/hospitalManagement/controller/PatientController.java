@@ -1,7 +1,7 @@
 package com.codingshuttle.youtube.hospitalManagement.controller;
 
-import com.codingshuttle.youtube.hospitalManagement.dto.AddPatientRequestDto;
-import com.codingshuttle.youtube.hospitalManagement.dto.PatientDto;
+import com.codingshuttle.youtube.hospitalManagement.dto.PatientRequestDto;
+import com.codingshuttle.youtube.hospitalManagement.dto.PatientResponseDto;
 import com.codingshuttle.youtube.hospitalManagement.service.PatientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public class PatientController {
     PatientService patientService;
 
     @PostMapping
-    public ResponseEntity<PatientDto> createNewPatient(@RequestBody @Valid AddPatientRequestDto addPatientRequestDto){
+    public ResponseEntity<PatientResponseDto> createNewPatient(@RequestBody @Valid PatientRequestDto addPatientRequestDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(patientService.registerNewPatient(addPatientRequestDto));
     }
 }

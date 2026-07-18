@@ -1,5 +1,4 @@
 package com.codingshuttle.youtube.hospitalManagement.dto;
 
-public class AppointmentRequestDTO {
-
+public class DepartmentRequestDTO {
 }
