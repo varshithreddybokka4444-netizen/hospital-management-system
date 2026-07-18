@@ -19,4 +19,6 @@ public interface DepartmentService {
      DepartmentResponseDto updatePartialDepartment(String publicId, DepartmentUpdateDto partialUpdatepDepartmentRequestDto);
 
      DepartmentResponseDto changeHeadDoctor(String publicId, DepartmentUpdateDto addNewHeadDoctorRequest);
+
+    void deleteDepartmentByPublicId(String publicId);
 }
