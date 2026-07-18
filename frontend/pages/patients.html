@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patients | Hospital Management System</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <i class ="fa-solid fa-hospital"></i>
+                <h1>Hospital Management System</h1>
+            </div>
+            <ul>
+                <li class="active">
+                    <i class="fa-solid fa-house"></i>
+                    Dashboard
+                </li>
+                <li>
+                    <i class ="fa-solid fa-user-injured"> </i>
+                    Patients
+                </li>
+                <li>
+                    <i class="fa-solid fa-user-doctor"></i>
+                    Doctor
+                </li>
+                <li>
+                    <i class ="fa-solid fa-building"></i>
+                    Departments
+                </li>
+                <li>
+                <i class ="fa-solid fa-calendar-check"></i>
+                    Appoinments
+                </li>
+            </ul>
+        </div>
+        <!-- Main Content -->
+         <div class="main">
+            <header>
+            <div class="profile">
+                <i class="fa-solid fa-bell"></i>
+                <i class="fa-solid fa-circle-user"></i>
+                <span>Admin</span>
+            </div>
+            </header>
+        <div class="content">
+
+    <div class="page-title">
+        <h1>Patients</h1>
+        <p>
+            <a href="#">Dashboard</a> >
+            <span>Patients</span>
+        </p>
+    </div>
+
+    <!-- Patient Card -->
+    <div class="patient-card">
+
+        <!-- Search -->
+        <div class="top-bar">
+
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text"
+                    placeholder="Search patient by name, phone, or ID...">
+            </div>
+
+            <div class="filter">
+                <i class="fa-solid fa-filter"></i>
+
+                <select>
+                    <option>All Patients</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                </select>
+            </div>
+
+            <button class="add-btn">
+                <i class="fa-solid fa-plus"></i>
+                Add Patient
+            </button>
+
+        </div>
+
+        <!-- Table -->
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>101</td>
+
+                    <td>
+                        <img src="https://i.pravatar.cc/40?img=12" alt="">
+                        John Doe
+                    </td>
+
+                    <td>28</td>
+
+                    <td>
+                        <span class="male">Male</span>
+                    </td>
+
+                    <td>
+                        <i class="fa-solid fa-phone"></i>
+                        9876543210
+                    </td>
+
+                    <td>123, Main St, Delhi</td>
+
+                    <td>
+
+                        <button class="edit">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+
+                        <button class="delete">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>102</td>
+
+                    <td>
+                        <img src="https://i.pravatar.cc/40?img=47" alt="">
+                        Jane Smith
+                    </td>
+
+                    <td>32</td>
+
+                    <td>
+                        <span class="female">Female</span>
+                    </td>
+
+                    <td>
+                        <i class="fa-solid fa-phone"></i>
+                        9876543211
+                    </td>
+
+                    <td>456, Park Ave, Mumbai</td>
+
+                    <td>
+
+                        <button class="edit">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+
+                        <button class="delete">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>103</td>
+
+                    <td>
+                        <img src="https://i.pravatar.cc/40?img=14" alt="">
+                        Rahul Sharma
+                    </td>
+
+                    <td>45</td>
+
+                    <td>
+                        <span class="male">Male</span>
+                    </td>
+
+                    <td>
+                        <i class="fa-solid fa-phone"></i>
+                        9876543212
+                    </td>
+
+                    <td>789, MG Road, Bangalore</td>
+
+                    <td>
+
+                        <button class="edit">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+
+                        <button class="delete">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>104</td>
+
+                    <td>
+                        <img src="https://i.pravatar.cc/40?img=48" alt="">
+                        Priya Patel
+                    </td>
+
+                    <td>29</td>
+
+                    <td>
+                        <span class="female">Female</span>
+                    </td>
+
+                    <td>
+                        <i class="fa-solid fa-phone"></i>
+                        9876543213
+                    </td>
+
+                    <td>321, Banjara Hills, Hyderabad</td>
+
+                    <td>
+
+                        <button class="edit">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+
+                        <button class="delete">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>105</td>
+
+                    <td>
+                        <img src="https://i.pravatar.cc/40?img=67" alt="">
+                        Amit Kumar
+                    </td>
+
+                    <td>50</td>
+
+                    <td>
+                        <span class="male">Male</span>
+                    </td>
+
+                    <td>
+                        <i class="fa-solid fa-phone"></i>
+                        9876543214
+                    </td>
+
+                    <td>654, Salt Lake, Kolkata</td>
+
+                    <td>
+
+                        <button class="edit">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+
+                        <button class="delete">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        <!-- Footer -->
+
+        <div class="table-footer">
+
+            <p>Showing 1 to 5 of 25 patients</p>
+
+            <div class="pagination">
+
+                <button>
+                    <i class="fa-solid fa-angle-left"></i>
+                </button>
+
+                <button class="active">1</button>
+
+                <button>2</button>
+
+                <button>3</button>
+
+                <button>...</button>
+
+                <button>5</button>
+
+                <button>
+                    <i class="fa-solid fa-angle-right"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+         </div>
+    </div>
+</body>
+</html>
