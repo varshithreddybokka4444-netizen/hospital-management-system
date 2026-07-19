@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface DoctorRepository extends JpaRepository<Doctor, Long> {
-    @Query("select d from Doctor where p.publicId = :publicId")
+    @Query("select d from Doctor d where d.publicId = :publicId")
     public Optional<Doctor> findByPublicId(String publicId);
 }

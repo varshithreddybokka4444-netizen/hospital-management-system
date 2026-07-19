@@ -48,7 +48,7 @@ public class DepartmentController {
         return ResponseEntity.ok(departmentService.updatePartialDepartment(publicId, partialUpdatepDepartmentRequestDto));
     }
 
-    @PatchMapping("/{publicId}")
+    @PatchMapping("/{publicId}/head-doctor")
     public ResponseEntity<DepartmentResponseDto>
     assignNewHeadDoctor(@PathVariable String publicId,@RequestBody DepartmentUpdateDto addNewHeadDoctorRequest) {
         return ResponseEntity.ok(departmentService.changeHeadDoctor(publicId, addNewHeadDoctorRequest));

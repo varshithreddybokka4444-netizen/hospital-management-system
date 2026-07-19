@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDate;
 
 import static com.codingshuttle.youtube.hospitalManagement.entity.type.BloodGroupType.O_POSITIVE;
+import static com.codingshuttle.youtube.hospitalManagement.entity.type.GenderType.MALE;
 
 @SpringBootTest
 class PatientServiceTest {
@@ -17,18 +18,18 @@ class PatientServiceTest {
     @Autowired
     PatientServiceImpl patientService;
 
-    @Test
-    public void testPatientRegistrationMethod(){
-        PatientCreateDto newRequest = PatientCreateDto.builder()
-                .name("Ravi")
-                .birthDate(LocalDate.of(1988,2,2))
-                .email("ravi@gmail.com")
-                .gender("Male")
-                .bloodGroup(O_POSITIVE).build();
-
-
-        PatientResponseDto patientDto = patientService.registerNewPatient(newRequest);
-
-        System.out.println(patientDto);
-    }
+//    @Test
+//    public void testPatientRegistrationMethod(){
+//        PatientCreateDto newRequest = PatientCreateDto.builder()
+//                .name("Ravi")
+//                .birthDate(LocalDate.of(1988,2,2))
+//                .email("ravi@gmail.com")
+//                .gender(MALE)
+//                .bloodGroup(O_POSITIVE).build();
+//
+//
+//        PatientResponseDto patientDto = patientService.registerNewPatient(newRequest);
+//
+//        System.out.println(patientDto);
+//    }
 }

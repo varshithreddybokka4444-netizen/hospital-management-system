@@ -20,7 +20,7 @@ import java.util.Optional;
 @Repository
 public interface PatientRepository extends JpaRepository<Patient,Long> {
 
-    @Query("select p from Patient where p.publicId = :publicId")
+    @Query("select p from Patient p where p.publicId = :publicId")
     public Optional<Patient> findByPublicId(String publicId);
 
 

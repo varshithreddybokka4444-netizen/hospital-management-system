@@ -28,31 +28,31 @@ public class DoctorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(doctorService.registerNewDoctor(addDoctorRequesDto));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{publicId}")
     public ResponseEntity<DoctorResponseDto>getDoctorByPublicId(@PathVariable String publicId){
         return ResponseEntity.ok(doctorService.getDoctorByPublicId(publicId));
     }
 
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<DoctorResponseDto>> getAllDoctors(){
         return ResponseEntity.ok(doctorService.getAllDoctors());
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{publicId}")
     public ResponseEntity<Void> deleteDoctorById(@PathVariable String publicId){
         doctorService.deleteDoctorByPublicId(publicId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{publicId}")
     public ResponseEntity<DoctorResponseDto> updateDoctor(@PathVariable String publicId,
                                                            @RequestBody DoctorCreateDto updateDoctorRequestDto){
         return ResponseEntity.ok(doctorService.updateDoctor(publicId,updateDoctorRequestDto));
     }
 
-    @PostMapping("/{id")
+    @PostMapping("/{publicId}")
     public ResponseEntity<DoctorResponseDto> updatePartialDoctor(@PathVariable String publicId,
                                                                  @RequestBody DoctorUpdateDto updatePartialDoctorUpdateDto){
         return ResponseEntity.ok(doctorService.updatePartialDoctor(publicId,updatePartialDoctorUpdateDto));

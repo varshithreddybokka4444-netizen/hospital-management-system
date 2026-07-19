@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
-    @Query("select a from Appointment where a.publicId = :publicId")
+    @Query("select a from Appointment a where a.publicId = :publicId")
     public Optional<Appointment> findByPublicId(String publicId);
 
 

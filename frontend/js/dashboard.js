@@ -1,4 +1,4 @@
-S
+
 // dashboard.js
 // Handles dashboard counts, sidebar navigation, and header interactions
 // for the Hospital Management System.

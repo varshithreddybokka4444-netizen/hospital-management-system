@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
-    @Query("select d from Department where d.publicId = :publicId")
+    @Query("select d from Department d where d.publicId = :publicId")
     public Optional<Department>findByPublicId(String publicId);
 
 }

@@ -67,7 +67,7 @@ public class GlobalExceptionHandler {
         }
 
 
-    @ExceptionHandler(InsuranceNotFoundException.class)
+    @ExceptionHandler(PatientNotFoundException.class)
     public ResponseEntity<ApiErrorResponse> handlesPatientNotFound(
             PatientNotFoundException ex,
             HttpServletRequest request){
@@ -86,7 +86,7 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(InsuranceNotFoundException.class)
+    @ExceptionHandler(DoctorNotFoundException.class)
     public ResponseEntity<ApiErrorResponse> handlesDoctorNotFound(
             DoctorNotFoundException ex,
             HttpServletRequest request){

@@ -54,31 +54,31 @@ public class PatientController {
         return ResponseEntity.ok(patientService.updatePartialPatient(publicId,updatePartialPatientRequestDto));
     }
 
-    @PostMapping
+    @PostMapping("/insurance")
     public ResponseEntity<InsuranceResponseDto>  assignInsurance(@PathVariable String publicId,
                                                                  @RequestBody @Valid  InsuranceCreateDto assignInsuranceRequestDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(patientService.assignInsurance(publicId,assignInsuranceRequestDto));
     }
 
-    @DeleteMapping("/{publicId}")
+    @DeleteMapping("/insurance/{publicId}")
     public ResponseEntity<Void> dissociateInsuranceOfPatientByPublicId(@PathVariable String patientPublicId){
         patientService.dissociateInsurance(patientPublicId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PutMapping("/{publicId}")
+    @PutMapping("/insurance/{publicId}")
     public ResponseEntity<InsuranceResponseDto> updateInsuranceOfPatientByPublicid(@PathVariable String publicId,
                                                                                    @RequestBody @Valid  InsuranceCreateDto updateInsuranceRequestDto){
         return ResponseEntity.ok(patientService.updateInsurance(publicId,updateInsuranceRequestDto));
     }
 
-    @PatchMapping("/{publicId}")
+    @PatchMapping("/insurance/{publicId}")
     public ResponseEntity<InsuranceResponseDto> partialUpdateInsuranceOfPatientByPublicid(@PathVariable String publicId,
                                                                                    @RequestBody @Valid  InsuranceUpdateDto partialUpdateInsuranceRequestDto){
         return ResponseEntity.ok(patientService.partialUpdateInsurance(publicId,partialUpdateInsuranceRequestDto));
     }
 
-    @GetMapping("/{publicId}")
+    @GetMapping("/insurance/{publicId}")
     public ResponseEntity<InsuranceResponseDto> getInsuranceOfPatientByPublicId(@PathVariable String publicId){
         return ResponseEntity.ok(patientService.getInsuranceOfPatient(publicId));
     }
