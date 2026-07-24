@@ -33,7 +33,7 @@ public class PatientUpdateDto {
     
     private GenderType gender;
 
-    
-    private BloodGroupType bloodGroup;
 
+    private BloodGroupType bloodGroup;
+    
 }

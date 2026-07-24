@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,247 +8,323 @@
 
     <link rel="stylesheet" href="../css/patients.css">
 
-    <!-- Font Awesome -->
     <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
+
 <body>
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="logo">
-                <i class ="fa-solid fa-hospital"></i>
-                <h1>Hospital Management System</h1>
-            </div>
-            <ul>
-                <li class="active">
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-hospital"></i>
+
+            <h2>Hospital<br>Management</h2>
+
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="dashboard.html">
                     <i class="fa-solid fa-house"></i>
                     Dashboard
-                </li>
-                <li>
-                    <i class ="fa-solid fa-user-injured"> </i>
+                </a>
+            </li>
+
+            <li class="active">
+                <a href="patients.html">
+                    <i class="fa-solid fa-user-injured"></i>
                     Patients
-                </li>
-                <li>
+                </a>
+            </li>
+
+            <li>
+                <a href="doctors.html">
                     <i class="fa-solid fa-user-doctor"></i>
-                    Doctor
-                </li>
-                <li>
-                    <i class ="fa-solid fa-building"></i>
+                    Doctors
+                </a>
+            </li>
+                        <li>
+                <a href="departments.html">
+                    <i class="fa-solid fa-building"></i>
                     Departments
-                </li>
-                <li>
-                <i class ="fa-solid fa-calendar-check"></i>
-                    Appoinments
-                </li>
-            </ul>
-        </div>
-        <!-- Main Content -->
-         <div class="main">
-            <header>
+                </a>
+            </li>
+
+            <li>
+                <a href="appointments.html">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    Appointments
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Header -->
+        <header class="header">
+
+            <div>
+
+                <h1>Patients</h1>
+
+                <p>Hospital Management System / Patients</p>
+
+            </div>
+
             <div class="profile">
+
                 <i class="fa-solid fa-bell"></i>
-                <i class="fa-solid fa-circle-user"></i>
-                <span>Admin</span>
-            </div>
-            </header>
-        <div class="content">
 
-    <div class="page-title">
-        <h1>Patients</h1>
-        <p>
-            <a href="#">Dashboard</a> >
-            <span>Patients</span>
-        </p>
-    </div>
+                <div class="admin">
 
-    <!-- Patient Card -->
-    <div class="patient-card">
+                    <i class="fa-solid fa-circle-user"></i>
 
-        <!-- Search -->
-        <div class="top-bar">
+                    <span>Admin</span>
 
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text"
-                    placeholder="Search patient by name, phone, or ID...">
+                </div>
+
             </div>
 
-            <div class="filter">
-                <i class="fa-solid fa-filter"></i>
+        </header>
 
-                <select>
-                    <option>All Patients</option>
-                    <option>Male</option>
-                    <option>Female</option>
-                </select>
+        <!-- Patient Card -->
+        <section class="patient-card">
+                        <!-- Top Bar -->
+            <div class="top-bar">
+
+                <div class="search-box">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="text"
+                        id="searchPatient"
+                        placeholder="Search by Name or Public ID">
+
+                </div>
+
+                <div class="filter">
+
+                    <i class="fa-solid fa-filter"></i>
+
+                    <select id="genderFilter">
+
+                        <option value="ALL">All Patients</option>
+                        <option value="MALE">Male</option>
+                        <option value="FEMALE">Female</option>
+
+                    </select>
+
+                </div>
+
+                <button
+                    id="addPatientBtn"
+                    class="add-btn">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Add Patient
+
+                </button>
+
             </div>
 
-            <button class="add-btn">
-                <i class="fa-solid fa-plus"></i>
-                Add Patient
+            <!-- Patient Table -->
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                                                <tr>
+
+                            <th>Public ID</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Email</th>
+                            <th>Blood Group</th>
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="patientTableBody">
+
+                        <!-- Data loaded by JavaScript -->
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <div class="table-footer">
+
+                <p id="patientCount">
+                    Showing 0 Patients
+                </p>
+
+                <div class="pagination">
+
+                    <button class="page-btn">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </button>
+
+                    <button class="page-btn active">1</button>
+
+                    <button class="page-btn">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+            </main>
+
+</div>
+
+<!-- Patient Modal -->
+<div class="modal" id="patientModal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2 id="modalTitle">Add Patient</h2>
+
+            <button
+                class="close-btn"
+                id="closeModal">
+
+                <i class="fa-solid fa-xmark"></i>
+
             </button>
 
         </div>
-        <!-- Table -->
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Age</th>
-                    <th>Gender</th>
-                    <th>Phone</th>
-                    <th>Address</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>101</td>
-                    <td>
-                        <img src="https://i.pravatar.cc/40?img=12" alt="">
-                        John Doe
-                    </td>
-                    <td>28</td>
-                    <td>
-                        <span class="male">Male</span>
-                    </td>
-                    <td>
-                        <i class="fa-solid fa-phone"></i>
-                        9876543210
-                    </td>
-                    <td>123, Main St, Delhi</td>
-                    <td>
-                        <button class="edit">
-                            <i class="fa-solid fa-pen"></i>
-                        </button>
 
-                        <button class="delete">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>102</td>
-                    <td>
-                        <img src="https://i.pravatar.cc/40?img=47" alt="">
-                        Jane Smith
-                    </td>
-                    <td>32</td>
-                    <td>
-                        <span class="female">Female</span>
-                    </td>
-                    <td>
-                        <i class="fa-solid fa-phone"></i>
-                        9876543211
-                    </td>
-                    <td>456, Park Ave, Mumbai</td>
-                    <td>
-                        <button class="edit">
-                            <i class="fa-solid fa-pen"></i>
-                        </button>
-                        <button class="delete">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>103</td>
-                    <td>
-                        <img src="https://i.pravatar.cc/40?img=14" alt="">
-                        Rahul Sharma
-                    </td>
-                    <td>45</td>
-                    <td>
-                        <span class="male">Male</span>
-                    </td>
-                    <td>
-                        <i class="fa-solid fa-phone"></i>
-                        9876543212
-                    </td>
-                    <td>789, MG Road, Bangalore</td>
-                    <td>
-                        <button class="edit">
-                            <i class="fa-solid fa-pen"></i>
-                        </button>
-                        <button class="delete">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>104</td>
-                    <td>
-                        <img src="https://i.pravatar.cc/40?img=48" alt="">
-                        Priya Patel
-                    </td>
-                    <td>29</td>
-                    <td>
-                        <span class="female">Female</span>
-                    </td>
-                    <td>
-                        <i class="fa-solid fa-phone"></i>
-                        9876543213
-                    </td>
-                    <td>321, Banjara Hills, Hyderabad</td>
-                    <td>
-                        <button class="edit">
-                            <i class="fa-solid fa-pen"></i>
-                        </button>
+        <form id="patientForm">
 
-                        <button class="delete">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>105</td>
-                    <td>
-                        <img src="https://i.pravatar.cc/40?img=67" alt="">
-                        Amit Kumar
-                    </td>
-                    <td>50</td>
-                    <td>
-                        <span class="male">Male</span>
-                    </td>
-                    <td>
-                        <i class="fa-solid fa-phone"></i>
-                        9876543214
-                    </td>
-                    <td>654, Salt Lake, Kolkata</td>
-                    <td>
-                        <button class="edit">
-                            <i class="fa-solid fa-pen"></i>
-                        </button>
+            <input
+                type="hidden"
+                id="patientPublicId">
 
-                        <button class="delete">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <!-- Footer -->
-        <div class="table-footer">
-            <p>Showing 1 to 5 of 25 patients</p>
-            <div class="pagination">
-                <button>
-                    <i class="fa-solid fa-angle-left"></i>
-                </button>
-                <button class="active">1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>...</button>
-                <button>5</button>
-                <button>
-                    <i class="fa-solid fa-angle-right"></i>
-                </button>
+            <div class="form-group">
+
+                <label for="patientName">
+                    Patient Name
+                </label>
+
+                <input
+                    type="text"
+                    id="patientName"
+                    placeholder="Enter patient name"
+                    required>
+
             </div>
-        </div>
+
+            <div class="form-group">
+
+                <label for="patientEmail">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="patientEmail"
+                    placeholder="Enter email"
+                    required>
+                                <div class="form-group">
+
+                <label for="patientBirthDate">
+                    Birth Date
+                </label>
+
+                <input
+                    type="date"
+                    id="patientBirthDate"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="patientGender">
+                    Gender
+                </label>
+
+                <select id="patientGender" required>
+
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="patientBloodGroup">
+                    Blood Group
+                </label>
+
+                <select id="patientBloodGroup" required>
+
+                    <option value="A_POSITIVE">A+</option>
+                    <option value="A_NEGATIVE">A-</option>
+                    <option value="B_POSITIVE">B+</option>
+                    <option value="B_NEGATIVE">B-</option>
+                    <option value="AB_POSITIVE">AB+</option>
+                    <option value="AB_NEGATIVE">AB-</option>
+                    <option value="O_POSITIVE">O+</option>
+                    <option value="O_NEGATIVE">O-</option>
+
+                </select>
+
+            </div>
+                        <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="cancelBtn">
+
+                    Cancel
+
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    id="savePatientBtn">
+
+                    Save Patient
+
+                </button>
+
+            </div>
+
+        </form>
+
     </div>
+
 </div>
-         </div>
-    </div>
+
+<!-- JavaScript -->
+<script src="../js/patients.js"></script>
+
 </body>
+
 </html>

@@ -2,7 +2,7 @@
 // dashboard.js
 // Handles dashboard counts, sidebar navigation, and header interactions
 // for the Hospital Management System.
- 
+alert("Dashboard JS Loaded");
 document.addEventListener("DOMContentLoaded", () => {
     initSidebarNavigation();
     loadDashboardCounts();
@@ -41,17 +41,10 @@ function setData(key, value) {
 /* ------------------------------------------------------------------ */
  
 function loadDashboardCounts() {
-    const counts = {
-        patients: getData(STORAGE_KEYS.patients).length,
-        doctors: getData(STORAGE_KEYS.doctors).length,
-        departments: getData(STORAGE_KEYS.departments).length,
-        appointments: getData(STORAGE_KEYS.appointments).length,
-    };
- 
-    updateCounter("patients", counts.patients);
-    updateCounter("doctors", counts.doctors);
-    updateCounter("departments", counts.departments);
-    updateCounter("appointments", counts.appointments);
+    updateCounter("patients", 250);
+    updateCounter("doctors", 35);
+    updateCounter("departments", 12);
+    updateCounter("appointments", 180);
 }
  
 // Animates a count from 0 up to its target value for a nicer feel.
