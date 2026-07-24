@@ -19,7 +19,7 @@ const addPatientBtn = document.getElementById("addPatientBtn");
 const cancelBtn = document.getElementById("cancelBtn");
 const closeBtn = document.querySelector(".close-btn");
 
-const searchInput = document.getElementById("searchInput");
+const searchInput = document.getElementById("searchPatient");
 const genderFilter = document.getElementById("genderFilter");
 
 const patientPublicId = document.getElementById("patientPublicId");
@@ -382,7 +382,7 @@ function applyFilters() {
             patient.email.toLowerCase().includes(searchValue);
 
         const matchesGender =
-            selectedGender === "" ||
+            selectedGender === "ALL" ||
             patient.gender === selectedGender;
 
         return matchesSearch && matchesGender;
@@ -422,4 +422,8 @@ document.addEventListener("keydown", (event) => {
 // INITIAL LOAD
 // ================================
 
-loadPatients();
+document.addEventListener("DOMContentLoaded", () => {
+
+    loadPatients();
+
+});

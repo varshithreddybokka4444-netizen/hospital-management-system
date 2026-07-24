@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
                     .build();
 
             return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
+                    .status(HttpStatus.CONFLICT)
                     .body(errorResponse);
     }
 
