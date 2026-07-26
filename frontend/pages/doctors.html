@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Doctors | Hospital Management System</title>
+
+    <link rel="stylesheet" href="../css/doctors.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-hospital"></i>
+
+            <h2>Hospital<br>Management</h2>
+
+        </div>
+
+        <ul>
+
+            <li>
+
+                <a href="dashboard.html">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Dashboard
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="patients.html">
+
+                    <i class="fa-solid fa-user-injured"></i>
+
+                    Patients
+
+                </a>
+
+            </li>
+
+            <li class="active">
+
+                <a href="doctors.html">
+
+                    <i class="fa-solid fa-user-doctor"></i>
+
+                    Doctors
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="departments.html">
+
+                    <i class="fa-solid fa-building"></i>
+
+                    Departments
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="appointments.html">
+
+                    <i class="fa-solid fa-calendar-check"></i>
+
+                    Appointments
+
+                </a>
+
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Main Content -->
+
+    <main class="main-content">
+
+        <!-- Header -->
+
+        <header class="header">
+
+            <div>
+
+                <h1>Doctors</h1>
+
+                <p>Hospital Management System / Doctors</p>
+
+            </div>
+
+            <div class="profile">
+
+                <i class="fa-solid fa-bell"></i>
+
+                <div class="admin">
+
+                    <i class="fa-solid fa-circle-user"></i>
+
+                    <span>Admin</span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- Doctor Card -->
+
+        <section class="patient-card">
+
+            <!-- Top Bar -->
+
+            <div class="top-bar">
+
+                <div class="search-box">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                            type="text"
+                            id="searchDoctor"
+                            placeholder="Search by Name or Public ID">
+
+                </div>
+
+                <button
+                        id="addDoctorBtn"
+                        class="add-btn">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Add Doctor
+
+                </button>
+
+            </div>
+
+            <!-- Doctor Table -->
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+
+                        <th>Public ID</th>
+
+                        <th>Name</th>
+
+                        <th>Specialisation</th>
+
+                        <th>Email</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                    </thead>
+
+                    <tbody id="doctorTableBody">
+
+                    <!-- Data Loaded By JavaScript -->
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <div class="table-footer">
+
+                <p id="doctorCount">
+
+                    Showing 0 Doctors
+
+                </p>
+
+                <div class="pagination">
+
+                    <button class="page-btn">
+
+                        <i class="fa-solid fa-angle-left"></i>
+
+                    </button>
+
+                    <button class="page-btn active">
+
+                        1
+
+                    </button>
+
+                    <button class="page-btn">
+
+                        <i class="fa-solid fa-angle-right"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+<!-- Doctor Modal -->
+<div class="modal" id="doctorModal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2 id="modalTitle">Add Doctor</h2>
+
+            <button
+                    class="close-btn"
+                    id="closeModal">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <form id="doctorForm">
+
+            <input
+                    type="hidden"
+                    id="doctorPublicId">
+
+            <div class="form-group">
+
+                <label for="doctorName">
+
+                    Doctor Name
+
+                </label>
+
+                <input
+                        type="text"
+                        id="doctorName"
+                        placeholder="Enter doctor name"
+                        required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="doctorSpecialisation">
+
+                    Specialisation
+
+                </label>
+
+                <input
+                        type="text"
+                        id="doctorSpecialisation"
+                        placeholder="Enter doctor specialisation"
+                        required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="doctorEmail">
+
+                    Email
+
+                </label>
+
+                <input
+                        type="email"
+                        id="doctorEmail"
+                        placeholder="Enter doctor email"
+                        required>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="cancelBtn">
+
+                    Cancel
+
+                </button>
+
+                <button
+                        type="submit"
+                        class="btn btn-primary"
+                        id="saveDoctorBtn">
+
+                    Save Doctor
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- JavaScript -->
+<script src="../js/doctors.js"></script>
+
+</body>
+
+</html>
