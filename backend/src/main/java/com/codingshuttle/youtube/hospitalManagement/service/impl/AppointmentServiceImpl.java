@@ -30,14 +30,19 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Transactional
     @Override
-    public AppointmentResponseDto createNewAppointment(AppointmentCreateDto appointmentCreateDto){
+    public AppointmentResponseDto createNewAppointment(AppointmentCreateDto appointmentCreateRequest){
 
-        Doctor doctor = doctorService.getDoctorEntityByPublicId(appointmentCreateDto.getDoctorPublicId());
-        Patient patient = patientService.getPatientEntityByPublicId(appointmentCreateDto.getPatientPublicId());
+        Doctor doctor = doctorService.getDoctorEntityByPublicId(appointmentCreateRequest.getDoctorPublicId());
+        Patient patient = patientService.getPatientEntityByPublicId(appointmentCreateRequest.getPatientPublicId());
 
-        Appointment appointment  = modelMapper.map(appointmentCreateDto,Appointment.class);
+        Appointment appointment  = Appointment.builder()
+                        .appointmentTime(appointmentCreateRequest.getAppointmentTime())
+                .reason(appointmentCreateRequest.getReason())
+                .build();
+
         appointment.setPatient(patient);
         appointment.setDoctor(doctor);
+
 
         patient.getAppointments().add(appointment);
         doctor.getAppointments().add(appointment);
@@ -62,11 +67,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     public List<AppointmentResponseDto> getAllAppointments() {
         List<Appointment> appointments = appointmentRepository.findAll();
 
-        if(appointments.isEmpty()){
-            throw new ResourceNotFoundException("No appointments found");
-        }
-
-
         return appointments.stream()
                 .map(appointment->modelMapper.map(appointment,AppointmentResponseDto.class))
                 .collect(Collectors.toList());
@@ -75,7 +75,17 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public AppointmentResponseDto updateAppointment(String publicId, AppointmentCreateDto updateAppointmentRequestDto) {
         Appointment appointment = getAppointmentEntityByPublicId(publicId);
-        modelMapper.map(updateAppointmentRequestDto,appointment);
+
+        Doctor doctor = doctorService.getDoctorEntityByPublicId(updateAppointmentRequestDto.getDoctorPublicId());
+        Patient patient = patientService.getPatientEntityByPublicId(updateAppointmentRequestDto.getPatientPublicId());
+
+
+        appointment.setAppointmentTime(updateAppointmentRequestDto.getAppointmentTime());
+        appointment.setReason(updateAppointmentRequestDto.getReason());
+
+        appointment.setPatient(patient);
+        appointment.setDoctor(doctor);
+
         return modelMapper.map(appointment,AppointmentResponseDto.class);
     }
 
@@ -89,7 +99,23 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Transactional
     public AppointmentResponseDto partialUpdateAppointment(String publicId, AppointmentUpdateDto partialUpdateAppointmentRequestDto) {
         Appointment appointment = getAppointmentEntityByPublicId(publicId);
-        modelMapper.map(partialUpdateAppointmentRequestDto,appointment);
+
+        if(partialUpdateAppointmentRequestDto.getDoctorPublicId()!=null) {
+            Doctor doctor = doctorService.getDoctorEntityByPublicId(partialUpdateAppointmentRequestDto.getDoctorPublicId());
+            appointment.setDoctor(doctor);
+        }
+        if(partialUpdateAppointmentRequestDto.getPatientPublicId()!=null) {
+            Patient patient = patientService.getPatientEntityByPublicId(partialUpdateAppointmentRequestDto.getPatientPublicId());
+            appointment.setPatient(patient);
+        }
+
+        if(partialUpdateAppointmentRequestDto.getAppointmentTime()!=null) {
+            appointment.setAppointmentTime(partialUpdateAppointmentRequestDto.getAppointmentTime());
+        }
+        if(partialUpdateAppointmentRequestDto.getReason()!=null) {
+            appointment.setReason(partialUpdateAppointmentRequestDto.getReason());
+        }
+
         return modelMapper.map(appointment,AppointmentResponseDto.class);
     }
 

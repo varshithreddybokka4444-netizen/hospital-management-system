@@ -14,7 +14,4 @@ public class DepartmentCreateDto {
     @NotBlank(message = "Name is Required")
     private String name;
 
-    @NotBlank(message = "Head doctor public ID is required")
-    private String headDoctorPublicId;
-
 }

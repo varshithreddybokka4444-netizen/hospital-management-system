@@ -2,7 +2,7 @@
 // dashboard.js
 // Handles dashboard counts, sidebar navigation, and header interactions
 // for the Hospital Management System.
-alert("Dashboard JS Loaded");
+
 document.addEventListener("DOMContentLoaded", () => {
     initSidebarNavigation();
     loadDashboardCounts();
@@ -14,12 +14,14 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ------------------------------------------------------------------ */
  
 const STORAGE_KEYS = {
+
     patients: "hms_patients",
     doctors: "hms_doctors",
     departments: "hms_departments",
     appointments: "hms_appointments",
 };
- 
+
+ const BASE_URL = "http://localhost:8080";
 // Reads an array from localStorage, defaulting to an empty array.
 function getData(key) {
     try {
@@ -39,12 +41,18 @@ function setData(key, value) {
 /* ------------------------------------------------------------------ */
 /* 2. Populate the dashboard cards with real counts                   */
 /* ------------------------------------------------------------------ */
- 
-function loadDashboardCounts() {
-    updateCounter("patients", 250);
-    updateCounter("doctors", 35);
-    updateCounter("departments", 12);
-    updateCounter("appointments", 180);
+async function loadDashboardCounts() {
+
+    await loadPatientsCount();
+
+    await loadDoctorsCount();
+
+    await loadDepartmentsCount();
+
+    await loadAppointmentsCount();
+
+    await loadTodaysAppointments();
+
 }
  
 // Animates a count from 0 up to its target value for a nicer feel.
@@ -81,12 +89,12 @@ function initSidebarNavigation() {
     // Map each sidebar label to the page it should link to.
     // Update these filenames once the corresponding pages exist.
     const routeMap = {
-        Dashboard: "index.html",
-        Patients: "patients.html",
-        Doctors: "doctors.html",
-        Departments: "departments.html",
-        Appoinments: "appointments.html", // matches the typo in the provided HTML
-        Appointments: "appointments.html",
+        Home: "index.html",
+        Patients: "pages/patients.html",
+        Doctors: "pages/doctors.html",
+        Departments: "pages/departments.html",
+        Appoinments: "pages/appointments.html",
+        Appointments: "pages/appointments.html"
     };
  
     navItems.forEach((item) => {
@@ -158,4 +166,142 @@ function removeRecord(type, index) {
     const data = getData(key);
     data.splice(index, 1);
     setData(key, data);
+}
+
+async function loadPatientsCount() {
+
+    try {
+
+        console.log("Fetching patients...");
+
+        const response = await fetch(`${BASE_URL}/patients`);
+
+        console.log(response);
+
+        const patients = await response.json();
+
+        console.log(patients);
+
+        updateCounter("patients", patients.length);
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+async function loadDoctorsCount() {
+
+    try {
+
+        const response = await fetch(`${BASE_URL}/doctors`);
+
+        const doctors = await response.json();
+
+        updateCounter("doctors", doctors.length);
+
+    } catch (error) {
+
+        console.error("Failed to load doctors.", error);
+
+    }
+
+}
+
+async function loadDepartmentsCount() {
+
+    try {
+
+        const response = await fetch(`${BASE_URL}/departments`);
+
+        const departments = await response.json();
+
+        updateCounter("departments", departments.length);
+
+    } catch (error) {
+
+        console.error("Failed to load departments.", error);
+
+    }
+
+}
+
+async function loadAppointmentsCount() {
+
+    try {
+
+        const response = await fetch(`${BASE_URL}/Appointments`);
+
+        const appointments = await response.json();
+
+        updateCounter("appointments", appointments.length);
+
+    } catch (error) {
+
+        console.error("Failed to load appointments.", error);
+
+    }
+
+}
+
+async function loadTodaysAppointments() {
+
+    try {
+
+        const response = await fetch(`${BASE_URL}/Appointments`);
+
+        const appointments = await response.json();
+
+        console.log(appointments);
+
+        const tbody = document.getElementById("todayAppointmentsBody");
+
+        tbody.innerHTML = "";
+
+        const now = new Date();
+
+        const today =
+            `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+
+        const todaysAppointments = appointments.filter(appointment =>
+            appointment.appointmentTime.startsWith(today)
+        );
+
+        console.log("Today's appointments:", todaysAppointments);
+
+        if (todaysAppointments.length === 0) {
+
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="4">
+                        No appointments scheduled today.
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+        todaysAppointments.forEach(appointment => {
+
+            const row = document.createElement("tr");
+
+           row.innerHTML = `
+               <td>${appointment.appointmentTime.substring(11,16)}</td>
+               <td>${appointment.patient.name}</td>
+               <td>${appointment.doctor.name}</td>
+               <td>${appointment.reason}</td>
+           `;
+
+            tbody.appendChild(row);
+
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
 }

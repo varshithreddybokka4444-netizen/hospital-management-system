@@ -63,9 +63,6 @@ public class PatientServiceImpl implements PatientService {
     public List<PatientResponseDto> getAllPatients() {
         List<Patient> patients = patientRepository.findAll();
 
-        if(patients.isEmpty()){
-            throw new ResourceNotFoundException("No patients found");
-        }
         return patients.stream()
                 .map(patient->modelMapper.map(patient,PatientResponseDto.class))
                 .collect(Collectors.toList());

@@ -25,15 +25,15 @@ public class Department {
     private String name;
 
     @OneToOne
-    @JoinColumn(name = "head_doctor_id",nullable = false)
+    @JoinColumn(name = "head_doctor_id")
     private Doctor headDoctor;
 
+//    @JoinTable(
+//            name = "my_dpt_doctors",
+//            joinColumns = @JoinColumn(name = "dpt_id"),
+//            inverseJoinColumns = @JoinColumn(name = "doctor_id"))
     @Builder.Default
-    @ManyToMany
-    @JoinTable(
-            name = "my_dpt_doctors",
-            joinColumns = @JoinColumn(name = "dpt_id"),
-            inverseJoinColumns = @JoinColumn(name = "doctor_id"))
+    @OneToMany
     private Set<Doctor> doctors = new HashSet<>();
 
     @PrePersist

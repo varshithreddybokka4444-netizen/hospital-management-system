@@ -1,15 +1,14 @@
 package com.codingshuttle.youtube.hospitalManagement.dto;
 
 import jakarta.validation.constraints.Email;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
+@Getter
+@Setter
 public class DoctorUpdateDto {
     private String name;
 
@@ -19,4 +18,6 @@ public class DoctorUpdateDto {
     
     @Email
     private String email;
+
+    private String departmentPublicId;
 }

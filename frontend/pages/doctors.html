@@ -34,15 +34,10 @@
         <ul>
 
             <li>
-
-                <a href="dashboard.html">
-
+                <a href="../index.html">
                     <i class="fa-solid fa-house"></i>
-
-                    Dashboard
-
+                    Home
                 </a>
-
             </li>
 
             <li>
@@ -174,6 +169,8 @@
 
                         <th>Name</th>
 
+                        <th>Department</th>
+
                         <th>Specialisation</th>
 
                         <th>Email</th>
@@ -231,6 +228,7 @@
     </main>
 
 </div>
+
 <!-- Doctor Modal -->
 <div class="modal" id="doctorModal">
 
@@ -252,6 +250,25 @@
 
         <form id="doctorForm">
 
+            <div class="form-group">
+
+                <label for="departmentSelect">
+
+                    Department
+
+                </label>
+
+                <select
+                        id="departmentSelect"
+                        required>
+
+                    <option value="">
+                        Select Department
+                    </option>
+
+                </select>
+
+            </div>
             <input
                     type="hidden"
                     id="doctorPublicId">

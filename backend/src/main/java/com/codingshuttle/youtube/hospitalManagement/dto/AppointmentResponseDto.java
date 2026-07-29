@@ -22,5 +22,6 @@ public class AppointmentResponseDto {
 
     private String reason;
 
+    private DepartmentSummaryDto department;
 
 }

@@ -15,10 +15,19 @@ const searchAppointment = document.getElementById("searchAppointment");
 const appointmentPublicId = document.getElementById("appointmentPublicId");
 const patientPublicId = document.getElementById("patientPublicId");
 const doctorPublicId = document.getElementById("doctorPublicId");
+const appointmentDate = document.getElementById("appointmentDate");
 const appointmentTime = document.getElementById("appointmentTime");
 const appointmentReason = document.getElementById("appointmentReason");
 
+const patientSearch = document.getElementById("patientSearch");
+const patientSearchResults = document.getElementById("patientSearchResults");
+
+const doctorSearch = document.getElementById("doctorSearch");
+const doctorSearchResults = document.getElementById("doctorSearchResults");
+
 let appointments = [];
+let patients = [];
+let doctors = [];
 let filteredAppointments = [];
 
 async function loadAppointments() {
@@ -30,6 +39,28 @@ async function loadAppointments() {
         filteredAppointments = [...appointments];
 
         renderAppointments(filteredAppointments);
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function loadPatients() {
+    try {
+        const response = await fetch("http://localhost:8080/patients");
+
+        patients = await response.json();
+console.log(patients);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function loadDoctors() {
+    try {
+        const response = await fetch("http://localhost:8080/doctors");
+
+        doctors = await response.json();
 
     } catch (error) {
         console.error(error);
@@ -97,6 +128,88 @@ searchAppointment.addEventListener("input", () => {
     renderAppointments(filteredAppointments);
 
 });
+patientSearch.addEventListener("input", () => {
+
+    const value = patientSearch.value.toLowerCase();
+
+    patientSearchResults.innerHTML = "";
+
+    if (value.length === 0) {
+
+        return;
+
+    }
+
+    const filteredPatients = patients.filter(patient =>
+
+        patient.name.toLowerCase().includes(value)
+
+    );
+
+    filteredPatients.forEach(patient => {
+
+        const div = document.createElement("div");
+
+        div.className = "search-result-item";
+
+        div.textContent = `${patient.name} (${patient.publicId})`;
+
+        div.addEventListener("click", () => {
+
+            patientSearch.value = patient.name;
+
+            patientPublicId.value = patient.publicId;
+
+            patientSearchResults.innerHTML = "";
+
+        });
+
+        patientSearchResults.appendChild(div);
+
+    });
+
+});
+doctorSearch.addEventListener("input", () => {
+
+    const value = doctorSearch.value.toLowerCase();
+
+    doctorSearchResults.innerHTML = "";
+
+    if (value.length === 0) {
+
+        return;
+
+    }
+
+    const filteredDoctors = doctors.filter(doctor =>
+
+        doctor.name.toLowerCase().includes(value)
+
+    );
+
+    filteredDoctors.forEach(doctor => {
+
+        const div = document.createElement("div");
+
+        div.className = "search-result-item";
+
+        div.textContent = `${doctor.name} (${doctor.publicId})`;
+
+        div.addEventListener("click", () => {
+
+            doctorSearch.value = doctor.name;
+
+            doctorPublicId.value = doctor.publicId;
+
+            doctorSearchResults.innerHTML = "";
+
+        });
+
+        doctorSearchResults.appendChild(div);
+
+    });
+
+});
 
 addAppointmentBtn.addEventListener("click", () => {
 
@@ -150,7 +263,7 @@ appointmentForm.addEventListener("submit", async (e) => {
 
         doctorPublicId: doctorPublicId.value,
 
-        appointmentTime: appointmentTime.value,
+        appointmentTime: `${appointmentDate.value}T${appointmentTime.value}`,
 
         reason: appointmentReason.value
 
@@ -246,4 +359,14 @@ document.addEventListener("keydown", (e) => {
 
 });
 
-loadAppointments();
+async function initializePage() {
+
+    await loadPatients();
+
+    await loadDoctors();
+
+    await loadAppointments();
+
+}
+
+initializePage();

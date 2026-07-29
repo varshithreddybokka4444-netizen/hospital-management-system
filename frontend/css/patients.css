@@ -566,3 +566,98 @@ tbody td:first-child{
         max-width:100%;
     }
 }
+
+/* Dashboard Cards */
+
+.cards{
+
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;
+    margin-top:30px;
+
+}
+
+.card{
+
+    background:#fff;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.card i{
+
+    font-size:36px;
+    color:#2563eb;
+    margin-bottom:15px;
+
+}
+
+.card h3{
+
+    margin-bottom:10px;
+    color:#555;
+
+}
+
+.card h1{
+
+    font-size:40px;
+    color:#2563eb;
+
+}
+
+/* Today's Appointments */
+
+.today-section{
+
+    margin-top:40px;
+
+}
+
+.today-section h2{
+
+    margin-bottom:20px;
+
+}
+
+.today-card{
+
+    background:#fff;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.today-card table{
+
+    width:100%;
+    border-collapse:collapse;
+
+}
+
+.today-card th,
+.today-card td{
+
+    padding:15px;
+    text-align:left;
+    border-bottom:1px solid #eee;
+
+}
+
+.today-card th{
+
+    color:#2563eb;
+    font-weight:600;
+
+}

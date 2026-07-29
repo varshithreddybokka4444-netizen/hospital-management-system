@@ -60,10 +60,8 @@ body{
 }
 
 .sidebar ul li:hover,
-.active{
-
-    background:#2563eb;
-
+.sidebar ul li.active {
+    background: #2563eb;
 }
 
 .main{
@@ -125,7 +123,7 @@ header{
 .card{
 
     background:white;
-    padding:30px;
+    padding:25px;
     border-radius:15px;
     box-shadow:0 5px 15px rgba(0,0,0,.1);
     transition:.3s;
@@ -140,9 +138,9 @@ header{
 
 .card i{
 
-    font-size:45px;
+    font-size:36px;
     color:#2563eb;
-    margin-bottom:20px;
+    margin-bottom:15px;
 
 }
 
@@ -154,7 +152,50 @@ header{
 
 .card h1{
 
-    font-size:45px;
+    font-size:40px;
+    color:#2563eb;
+
+}
+
+.today-section{
+
+    margin-top:50px;
+
+}
+
+.today-section h2{
+
+    margin-bottom:20px;
+
+}
+
+.today-card{
+
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+
+}
+
+.today-card table{
+
+    width:100%;
+    border-collapse:collapse;
+
+}
+
+.today-card th,
+.today-card td{
+
+    padding:15px;
+    text-align:left;
+    border-bottom:1px solid #eee;
+
+}
+
+.today-card th{
+
     color:#2563eb;
 
 }

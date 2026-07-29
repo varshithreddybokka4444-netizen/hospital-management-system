@@ -35,15 +35,10 @@
         <ul>
 
             <li>
-
-                <a href="dashboard.html">
-
+                <a href="../index.html">
                     <i class="fa-solid fa-house"></i>
-
-                    Dashboard
-
+                    Home
                 </a>
-
             </li>
 
             <li>
@@ -259,32 +254,69 @@
 
             <div class="form-group">
 
-                <label for="patientPublicId">
+                <label for="patientSearch">
 
-                    Patient Public ID
+                    Patient
 
                 </label>
 
                 <input
                         type="text"
-                        id="patientPublicId"
-                        placeholder="Enter Patient Public ID"
+                        id="patientSearch"
+                        placeholder="Search patient..."
+                        autocomplete="off"
                         required>
+
+                <input
+                        type="hidden"
+                        id="patientPublicId">
+
+                <div
+                        id="patientSearchResults"
+                        class="search-results">
+
+                </div>
 
             </div>
 
             <div class="form-group">
 
-                <label for="doctorPublicId">
+                <label for="doctorSearch">
 
-                    Doctor Public ID
+                    Doctor
 
                 </label>
 
                 <input
                         type="text"
-                        id="doctorPublicId"
-                        placeholder="Enter Doctor Public ID"
+                        id="doctorSearch"
+                        placeholder="Search doctor..."
+                        autocomplete="off"
+                        required>
+
+                <input
+                        type="hidden"
+                        id="doctorPublicId">
+
+                <div
+                        id="doctorSearchResults"
+                        class="search-results">
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="appointmentDate">
+
+                    Appointment Date
+
+                </label>
+
+                <input
+                        type="date"
+                        id="appointmentDate"
                         required>
 
             </div>
@@ -293,17 +325,16 @@
 
                 <label for="appointmentTime">
 
-                    Appointment Date & Time
+                    Appointment Time
 
                 </label>
 
                 <input
-                        type="datetime-local"
+                        type="time"
                         id="appointmentTime"
                         required>
 
             </div>
-
             <div class="form-group">
 
                 <label for="appointmentReason">

@@ -47,15 +47,10 @@
             </li>
 
             <li>
-
-                <a href="patients.html">
-
-                    <i class="fa-solid fa-user-injured"></i>
-
-                    Patients
-
+                <a href="../index.html">
+                    <i class="fa-solid fa-house"></i>
+                    Home
                 </a>
-
             </li>
 
             <li>
@@ -273,21 +268,21 @@
 
             </div>
 
-            <div class="form-group">
+<!--            <div class="form-group">-->
 
-                <label for="headDoctorPublicId">
+<!--                <label for="headDoctorPublicId">-->
 
-                    Head Doctor Public ID
+<!--                    Head Doctor Public ID-->
 
-                </label>
+<!--                </label>-->
 
-                <input
-                        type="text"
-                        id="headDoctorPublicId"
-                        placeholder="Enter head doctor public ID"
-                        required>
+<!--                <input-->
+<!--                        type="text"-->
+<!--                        id="headDoctorPublicId"-->
+<!--                        placeholder="Enter head doctor public ID"-->
+<!--                        >-->
 
-            </div>
+<!--            </div>-->
 
             <div class="modal-footer">
 
@@ -316,6 +311,79 @@
     </div>
 
 </div>
+
+
+
+
+<div class="modal" id="assignHeadDoctorModal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>Assign Head Doctor</h2>
+
+            <button
+                    class="close-btn"
+                    id="closeAssignModal">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <form id="assignHeadDoctorForm">
+
+            <input
+                    type="hidden"
+                    id="assignDepartmentPublicId">
+
+            <div class="form-group">
+
+                <label for="headDoctorSelect">
+
+                    Head Doctor
+
+                </label>
+
+                <select id="headDoctorSelect" required>
+
+                    <option value="">
+                        Select Doctor
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="cancelAssignBtn">
+
+                    Cancel
+
+                </button>
+
+                <button
+                        type="submit"
+                        class="btn btn-primary">
+
+                    Assign
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
 
 <!-- JavaScript -->
 <script src="../js/departments.js"></script>

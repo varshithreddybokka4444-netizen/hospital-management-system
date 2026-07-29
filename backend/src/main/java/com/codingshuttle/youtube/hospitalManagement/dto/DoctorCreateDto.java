@@ -21,4 +21,10 @@ public class DoctorCreateDto {
     @NotBlank(message = "Please provide a valid email address")
     @Email
     private String email;
+
+    @NotBlank(message = "Please provide a valid department publicId")
+    private String departmentPublicId;
+
 }
+
+ 

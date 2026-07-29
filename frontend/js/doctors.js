@@ -3,382 +3,426 @@
 // ================================
 
 const API_URL = "http://localhost:8080/doctors";
+const DEPARTMENT_API_URL = "http://localhost:8080/departments";
 
 // ================================
 // DOM Elements
 // ================================
 
-const doctorTableBody = document.getElementById("doctorTableBody");
-const doctorCount = document.getElementById("doctorCount");
+const doctorTableBody =
+    document.getElementById("doctorTableBody");
 
-const doctorModal = document.getElementById("doctorModal");
-const doctorForm = document.getElementById("doctorForm");
+const doctorCount =
+    document.getElementById("doctorCount");
 
-const addDoctorBtn = document.getElementById("addDoctorBtn");
-const cancelBtn = document.getElementById("cancelBtn");
-const closeBtn = document.querySelector(".close-btn");
+const doctorModal =
+    document.getElementById("doctorModal");
 
-const searchInput = document.getElementById("searchDoctor");
+const doctorForm =
+    document.getElementById("doctorForm");
 
-const doctorPublicId = document.getElementById("doctorPublicId");
-const doctorName = document.getElementById("doctorName");
-const doctorSpecialisation = document.getElementById("doctorSpecialisation");
-const doctorEmail = document.getElementById("doctorEmail");
+const addDoctorBtn =
+    document.getElementById("addDoctorBtn");
 
-// ================================
-// Global Variables
-// ================================
+const cancelBtn =
+    document.getElementById("cancelBtn");
 
-let doctors = [];
-let filteredDoctors = [];
+const closeBtn =
+    document.querySelector(".close-btn");
 
-// ================================
-// PAGE LOAD
-// ================================
+const searchInput =
+    document.getElementById("searchDoctor");
 
-document.addEventListener("DOMContentLoaded", () => {
-    loadDoctors();
-});
+const doctorPublicId =
+    document.getElementById("doctorPublicId");
 
-// ================================
-// LOAD DOCTORS
-// ================================
+const doctorName =
+    document.getElementById("doctorName");
 
-async function loadDoctors() {
+const doctorSpecialisation =
+    document.getElementById("doctorSpecialisation");
 
-    try {
+const doctorEmail =
+    document.getElementById("doctorEmail");
 
-        const response = await fetch(API_URL);
+const departmentSelect =
+    document.getElementById("departmentSelect");
 
-        if (!response.ok) {
-            throw new Error("Failed to load doctors");
-        }
+    // ================================
+    // Global Variables
+    // ================================
 
-        doctors = await response.json();
+    let doctors = [];
+    let filteredDoctors = [];
 
-        filteredDoctors = [...doctors];
+    // ================================
+    // PAGE LOAD
+    // ================================
 
-        renderDoctors();
+    document.addEventListener("DOMContentLoaded", async () => {
 
-    } catch (error) {
+        await loadDepartments();
 
-        console.error(error);
-
-        alert("Unable to fetch doctors.");
-
-    }
-
-}
-
-// ================================
-// RENDER DOCTORS
-// ================================
-
-function renderDoctors() {
-
-    doctorTableBody.innerHTML = "";
-
-    if (filteredDoctors.length === 0) {
-
-        doctorTableBody.innerHTML = `
-            <tr>
-                <td colspan="5" class="empty-state">
-                    <i class="fa-solid fa-user-doctor"></i>
-                    <p>No Doctors Found</p>
-                </td>
-            </tr>
-        `;
-
-        doctorCount.textContent = "Showing 0 Doctors";
-
-        return;
-    }
-
-    filteredDoctors.forEach(doctor => {
-
-        const row = document.createElement("tr");
-
-        row.innerHTML = `
-            <td>${doctor.publicId}</td>
-            <td>${doctor.name}</td>
-            <td>${doctor.specialisation}</td>
-            <td>${doctor.email}</td>
-
-            <td>
-
-                <button
-                    class="action-btn edit-btn"
-                    onclick="editDoctor('${doctor.publicId}')">
-
-                    <i class="fa-solid fa-pen"></i>
-
-                </button>
-
-                <button
-                    class="action-btn delete-btn"
-                    onclick="deleteDoctor('${doctor.publicId}')">
-
-                    <i class="fa-solid fa-trash"></i>
-
-                </button>
-
-            </td>
-        `;
-
-        doctorTableBody.appendChild(row);
+        await loadDoctors();
 
     });
 
-    doctorCount.textContent =
-        `Showing ${filteredDoctors.length} Doctor${filteredDoctors.length > 1 ? "s" : ""}`;
+    // ================================
+    // LOAD DOCTORS
+    // ================================
 
-}
+    async function loadDoctors() {
 
-// ================================
-// SEARCH DOCTORS
-// ================================
+        try {
 
-searchInput.addEventListener("input", applySearch);
+            const response = await fetch(API_URL);
 
-function applySearch() {
+            if (!response.ok) {
 
-    const value = searchInput.value.trim().toLowerCase();
+                throw new Error("Failed to load doctors");
 
-    filteredDoctors = doctors.filter(doctor =>
+            }
 
-        doctor.name.toLowerCase().includes(value) ||
+            doctors = await response.json();
 
-        doctor.publicId.toLowerCase().includes(value) ||
+            filteredDoctors = [...doctors];
 
-        doctor.email.toLowerCase().includes(value) ||
+            renderDoctors();
 
-        doctor.specialisation.toLowerCase().includes(value)
+        }
 
-    );
+        catch (error) {
 
-    renderDoctors();
+            console.error(error);
 
-}
-// ================================
-// OPEN MODAL
-// ================================
+            alert("Unable to fetch doctors.");
 
-addDoctorBtn.addEventListener("click", () => {
-
-    doctorForm.reset();
-
-    doctorPublicId.value = "";
-
-    document.getElementById("modalTitle").textContent = "Add Doctor";
-
-    doctorModal.classList.add("active");
-
-});
-
-// ================================
-// CLOSE MODAL
-// ================================
-
-cancelBtn.addEventListener("click", closeModal);
-
-closeBtn.addEventListener("click", closeModal);
-
-window.addEventListener("click", (event) => {
-
-    if (event.target === doctorModal) {
-
-        closeModal();
+        }
 
     }
 
-});
+    // ================================
+    // LOAD DEPARTMENTS
+    // ================================
 
-function closeModal() {
+    async function loadDepartments() {
 
-    doctorForm.reset();
+        try {
 
-    doctorPublicId.value = "";
+            const response =
+                await fetch(DEPARTMENT_API_URL);
 
-    doctorModal.classList.remove("active");
+            if (!response.ok) {
 
-}
+                throw new Error("Unable to load departments");
 
-// ================================
-// EDIT DOCTOR
-// ================================
+            }
 
-function editDoctor(publicId) {
+            const departments = await response.json();
 
-    const doctor = doctors.find(d => d.publicId === publicId);
+            departmentSelect.innerHTML = `
 
-    if (!doctor) return;
+                <option value="">
+                    Select Department
+                </option>
 
-    document.getElementById("modalTitle").textContent = "Edit Doctor";
+            `;
 
-    doctorPublicId.value = doctor.publicId;
+            departments.forEach(department => {
 
-    doctorName.value = doctor.name;
+                const option =
+                    document.createElement("option");
 
-    doctorSpecialisation.value = doctor.specialisation;
+                option.value = department.publicId;
 
-    doctorEmail.value = doctor.email;
+                option.textContent = department.name;
 
-    doctorModal.classList.add("active");
-
-}
-
-// ================================
-// SAVE DOCTOR
-// ================================
-
-doctorForm.addEventListener("submit", async (event) => {
-
-    event.preventDefault();
-
-    const doctorData = {
-
-        name: doctorName.value.trim(),
-
-        specialisation: doctorSpecialisation.value.trim(),
-
-        email: doctorEmail.value.trim()
-
-    };
-
-    try {
-
-        let response;
-
-        // UPDATE
-
-        if (doctorPublicId.value !== "") {
-
-            response = await fetch(`${API_URL}/${doctorPublicId.value}`, {
-
-                method: "PUT",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify(doctorData)
+                departmentSelect.appendChild(option);
 
             });
 
         }
 
-        // ADD
+        catch (error) {
 
-        else {
+            console.error(error);
 
-            response = await fetch(API_URL, {
-
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify(doctorData)
-
-            });
+            alert("Unable to load departments.");
 
         }
 
-        if (!response.ok) {
+    }
 
-            throw new Error("Failed to save doctor");
+    // ================================
+    // RENDER DOCTORS
+    // ================================
+
+    function renderDoctors() {
+
+        doctorTableBody.innerHTML = "";
+
+        if (filteredDoctors.length === 0) {
+
+            doctorTableBody.innerHTML = `
+                <tr>
+                    <td colspan="6" class="empty-state">
+                        <i class="fa-solid fa-user-doctor"></i>
+                        <p>No Doctors Found</p>
+                    </td>
+                </tr>
+            `;
+
+            doctorCount.textContent = "Showing 0 Doctors";
+
+            return;
 
         }
 
-        closeModal();
+        filteredDoctors.forEach(doctor => {
 
-        await loadDoctors();
+            const row = document.createElement("tr");
 
-    }
+           row.innerHTML = `
+               <td>${doctor.publicId}</td>
 
-    catch (error) {
+               <td>${doctor.name}</td>
 
-        console.error(error);
+               <td>
+                   ${doctor.department ? doctor.department.name : "-"}
+               </td>
 
-        alert("Unable to save doctor.");
+               <td>${doctor.specialisation}</td>
 
-    }
+               <td>${doctor.email}</td>
 
-});
+               <td>
 
-// ================================
-// DELETE DOCTOR
-// ================================
+                    <button
+                        class="action-btn edit-btn"
+                        onclick="editDoctor('${doctor.publicId}')">
 
-async function deleteDoctor(publicId) {
+                        <i class="fa-solid fa-pen"></i>
 
-    const confirmDelete = confirm(
-        "Are you sure you want to delete this doctor?"
-    );
+                    </button>
 
-    if (!confirmDelete) return;
+                                    <button
+                                        class="action-btn delete-btn"
+                                        onclick="deleteDoctor('${doctor.publicId}')">
 
-    try {
+                                        <i class="fa-solid fa-trash"></i>
 
-        const response = await fetch(`${API_URL}/${publicId}`, {
+                                    </button>
 
-            method: "DELETE"
+                                </td>
+                            `;
 
-        });
+                            doctorTableBody.appendChild(row);
 
-        if (!response.ok) {
+                        });
 
-            throw new Error("Delete failed");
+                        doctorCount.textContent =
+                            `Showing ${filteredDoctors.length} Doctor${filteredDoctors.length > 1 ? "s" : ""}`;
 
-        }
+                    }
 
-        await loadDoctors();
+                    // ================================
+                    // SEARCH DOCTORS
+                    // ================================
 
-    }
+                    searchInput.addEventListener("input", applySearch);
 
-    catch (error) {
+                    function applySearch() {
 
-        console.error(error);
+                        const value = searchInput.value.trim().toLowerCase();
 
-        alert("Unable to delete doctor.");
+                        filteredDoctors = doctors.filter(doctor =>
 
-    }
+                            doctor.name.toLowerCase().includes(value) ||
 
-}
+                            doctor.publicId.toLowerCase().includes(value) ||
 
-// ================================
-// REFRESH TABLE
-// ================================
+                            doctor.email.toLowerCase().includes(value) ||
 
-function refreshDoctors() {
+                            doctor.specialisation.toLowerCase().includes(value)
 
-    filteredDoctors = [...doctors];
+                        );
 
-    renderDoctors();
+                        renderDoctors();
 
-}
+                    }
 
-// ================================
-// ESC KEY CLOSE MODAL
-// ================================
+                    // ================================
+                    // OPEN MODAL
+                    // ================================
 
-document.addEventListener("keydown", (event) => {
+                    addDoctorBtn.addEventListener("click", async () => {
 
-    if (event.key === "Escape") {
+                        doctorForm.reset();
 
-        closeModal();
+                        doctorPublicId.value = "";
 
-    }
+                        document.getElementById("modalTitle").textContent =
+                            "Add Doctor";
 
-});
+                        await loadDepartments();
 
-// ================================
-// INITIAL LOAD
-// ================================
+                        doctorModal.classList.add("active");
 
-document.addEventListener("DOMContentLoaded", () => {
+                    });
 
-    loadDoctors();
+                    // ================================
+                    // CLOSE MODAL
+                    // ================================
 
-});
+                    cancelBtn.addEventListener("click", closeModal);
+
+                    closeBtn.addEventListener("click", closeModal);
+
+                    window.addEventListener("click", (event) => {
+
+                        if (event.target === doctorModal) {
+
+                            closeModal();
+
+                        }
+
+                    });
+
+                    function closeModal() {
+
+                        doctorForm.reset();
+
+                        doctorPublicId.value = "";
+
+                        departmentSelect.value = "";
+
+                        doctorModal.classList.remove("active");
+
+                    }
+
+                    // ================================
+                    // EDIT DOCTOR
+                    // ================================
+
+                    function editDoctor(publicId) {
+
+                        const doctor =
+                            doctors.find(d => d.publicId === publicId);
+
+                        if (!doctor) return;
+
+                        doctorForm.reset();
+
+                        document.getElementById("modalTitle").textContent =
+                            "Edit Doctor";
+
+                        doctorPublicId.value =
+                            doctor.publicId;
+
+                        doctorName.value =
+                            doctor.name;
+
+                        doctorSpecialisation.value =
+                            doctor.specialisation;
+
+                        doctorEmail.value =
+                            doctor.email;
+
+                        if (doctor.department) {
+
+                            departmentSelect.value =
+                                doctor.department.publicId;
+
+                        }
+
+                        doctorModal.classList.add("active");
+
+                    }
+
+                    // ================================
+                    // SAVE DOCTOR
+                    // ================================
+
+                doctorForm.addEventListener("submit", async (event) => {
+
+                    event.preventDefault();
+
+                    if (departmentSelect.value === "") {
+
+                        alert("Please select a department.");
+
+                        return;
+
+                    }
+
+                    const doctorData = {
+
+                        name: doctorName.value.trim(),
+
+                        specialisation: doctorSpecialisation.value.trim(),
+
+                        email: doctorEmail.value.trim(),
+
+                        departmentPublicId: departmentSelect.value
+
+                    };
+
+                    try {
+
+                        let response;
+
+                        if (doctorPublicId.value !== "") {
+
+                            response = await fetch(
+                                `${API_URL}/${doctorPublicId.value}`,
+                                {
+                                    method: "PUT",
+
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+
+                                    body: JSON.stringify(doctorData)
+                                }
+                            );
+
+                        }
+
+                        else {
+
+                            response = await fetch(
+                                API_URL,
+                                {
+                                    method: "POST",
+
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+
+                                    body: JSON.stringify(doctorData)
+                                }
+                            );
+
+                        }
+
+                        if (!response.ok) {
+
+                            throw new Error("Failed to save doctor");
+
+                        }
+
+                        closeModal();
+
+                        await loadDoctors();
+
+                    }
+
+                    catch (error) {
+
+                        console.error(error);
+
+                        alert("Unable to save doctor.");
+
+                    }
+
+                });

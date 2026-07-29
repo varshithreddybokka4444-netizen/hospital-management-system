@@ -3,6 +3,7 @@ package com.codingshuttle.youtube.hospitalManagement.controller;
 import com.codingshuttle.youtube.hospitalManagement.dto.DepartmentCreateDto;
 import com.codingshuttle.youtube.hospitalManagement.dto.DepartmentUpdateDto;
 import com.codingshuttle.youtube.hospitalManagement.dto.DepartmentResponseDto;
+import com.codingshuttle.youtube.hospitalManagement.dto.DoctorSummaryDto;
 import com.codingshuttle.youtube.hospitalManagement.service.DepartmentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/Departments")
+@RequestMapping("/departments")
 @RequiredArgsConstructor
 @Validated
 public class DepartmentController {
@@ -37,10 +38,10 @@ public class DepartmentController {
     }
 
     @PutMapping("/{publicId}")
-        public ResponseEntity<DepartmentResponseDto>
-                updateDepartment(@PathVariable String publicId,@RequestBody DepartmentUpdateDto updateDepartmentRequestDto){
+    public ResponseEntity<DepartmentResponseDto>
+    updateDepartment(@PathVariable String publicId,@RequestBody DepartmentUpdateDto updateDepartmentRequestDto){
         return ResponseEntity.ok(departmentService.updateDepartment(publicId,updateDepartmentRequestDto));
-        }
+    }
 
     @PatchMapping("/{publicId}")
     public ResponseEntity<DepartmentResponseDto>
@@ -54,12 +55,18 @@ public class DepartmentController {
         return ResponseEntity.ok(departmentService.changeHeadDoctor(publicId, addNewHeadDoctorRequest));
     }
 
+
+
     @DeleteMapping("/{publicId}")
     public ResponseEntity<Void> deleteDepartmentByPublicId(@PathVariable String publicId){
         departmentService.deleteDepartmentByPublicId(publicId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @GetMapping("/{publicId}/doctors")
+    public ResponseEntity<List<DoctorSummaryDto>> getDoctorsByDepartmentPublicId(@PathVariable String publicId){
+        return ResponseEntity.ok(departmentService.getDoctorsByDepartment(publicId));
     }
 
 
+}

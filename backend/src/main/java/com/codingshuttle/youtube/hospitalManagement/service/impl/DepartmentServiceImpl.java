@@ -3,6 +3,7 @@ package com.codingshuttle.youtube.hospitalManagement.service.impl;
 import com.codingshuttle.youtube.hospitalManagement.dto.DepartmentCreateDto;
 import com.codingshuttle.youtube.hospitalManagement.dto.DepartmentUpdateDto;
 import com.codingshuttle.youtube.hospitalManagement.dto.DepartmentResponseDto;
+import com.codingshuttle.youtube.hospitalManagement.dto.DoctorSummaryDto;
 import com.codingshuttle.youtube.hospitalManagement.entity.Department;
 import com.codingshuttle.youtube.hospitalManagement.entity.Doctor;
 import com.codingshuttle.youtube.hospitalManagement.exception.ResourceNotFoundException;
@@ -13,13 +14,12 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class DepartmentServiceImpl implements DepartmentService {
+public class DepartmentServiceImpl implements DepartmentService{
     private final ModelMapper modelMapper;
     private final DepartmentRepository departmentRepository;
     private final DoctorService doctorService;
@@ -27,51 +27,43 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public DepartmentResponseDto createNewDepartment(DepartmentCreateDto addDepartmentRequestDto) {
         Department department = modelMapper.map(addDepartmentRequestDto,Department.class);
-        Doctor doctor = modelMapper.map(doctorService.getDoctorByPublicId(addDepartmentRequestDto.getHeadDoctorPublicId()), Doctor.class);
-        department.getDoctors().add(doctor);
-
 
         Department savedDepartment = departmentRepository.save(department);
 
         return modelMapper.map(savedDepartment,DepartmentResponseDto.class);
     }
 
-    public DepartmentResponseDto getDepartmentByPublicId(String publicId) {
+    @Override
+    public Department getDepartmentEntityByPublicId(String publicId){
         Department department = departmentRepository.findByPublicId(publicId).orElseThrow(()->
                 new ResourceNotFoundException("Department not found with id "+publicId));
 
-        Doctor doctor = doctorService.getDoctorEntityByPublicId(publicId);
 
-        department.getDoctors().add(doctor);
+        return department;
+    }
+
+    public DepartmentResponseDto getDepartmentByPublicId(String publicId) {
+        Department department = getDepartmentEntityByPublicId(publicId);
 
         return modelMapper.map(department,DepartmentResponseDto.class);
     }
+
 
     @Override
     public List<DepartmentResponseDto> getAllDepartments() {
         List<Department> departments = departmentRepository.findAll();
 
-        if(departments.isEmpty()){
-            throw new ResourceNotFoundException("No departments found");
-        }
-
         return departments.stream()
-                .map(department->modelMapper.map(department,DepartmentResponseDto.class))
-                .collect(Collectors.toList());
+                .map(department ->modelMapper.map(department,DepartmentResponseDto.class))
+                .toList();
     }
 
     @Override
     @Transactional
     public DepartmentResponseDto updateDepartment(String publicId, DepartmentUpdateDto updateDepartmentRequestDto) {
 
-        Department department = departmentRepository.findByPublicId(publicId).orElseThrow(()->
-                new ResourceNotFoundException("Department not found with id "+publicId));
-        Doctor doctor = modelMapper.map
-                (doctorService.getDoctorByPublicId(updateDepartmentRequestDto.getHeadDoctorPublicId()),Doctor.class);
-        department.getDoctors().add(doctor);
-
-
-        modelMapper.map(department,updateDepartmentRequestDto);
+        Department department = getDepartmentEntityByPublicId(publicId);
+        modelMapper.map(updateDepartmentRequestDto,department);
 
         return modelMapper.map(department,DepartmentResponseDto.class);
     }
@@ -80,15 +72,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Transactional
     public DepartmentResponseDto updatePartialDepartment(String publicId, DepartmentUpdateDto partialUpdatepDepartmentRequestDto) {
 
-        Department department = departmentRepository.findByPublicId(publicId).orElseThrow(()->
-                new ResourceNotFoundException("Department not found with publicId "+publicId));
-        modelMapper.map(department,partialUpdatepDepartmentRequestDto);
-
-        if(partialUpdatepDepartmentRequestDto.getHeadDoctorPublicId()!=null){
-            Doctor doctor = modelMapper.map
-                    (doctorService.getDoctorByPublicId(partialUpdatepDepartmentRequestDto.getHeadDoctorPublicId()),Doctor.class);
-            department.getDoctors().add(doctor);
-        }
+        Department department = getDepartmentEntityByPublicId(publicId);
+        modelMapper.map(partialUpdatepDepartmentRequestDto,department);
 
         return modelMapper.map(department,DepartmentResponseDto.class);
     }
@@ -96,10 +81,14 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     @Transactional
     public DepartmentResponseDto changeHeadDoctor(String publicId, DepartmentUpdateDto addNewHeadDoctorRequestDto) {
-        Department department = departmentRepository.findByPublicId(publicId).orElseThrow(()->
-                new ResourceNotFoundException("Department not found with publicId "+publicId));
-        Doctor doctor = modelMapper.map(doctorService.getDoctorByPublicId(addNewHeadDoctorRequestDto.getHeadDoctorPublicId()),Doctor.class);
-        department.getDoctors().add(doctor);
+        Department department = getDepartmentEntityByPublicId(publicId);
+
+        Doctor doctor =
+                doctorService.getDoctorEntityByPublicId(
+                        addNewHeadDoctorRequestDto.getHeadDoctorPublicId()
+                );
+
+        department.setHeadDoctor(doctor);
 
         return modelMapper.map(department,DepartmentResponseDto.class);
 
@@ -107,9 +96,24 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public void deleteDepartmentByPublicId(String publicId) {
-        Department department = departmentRepository.findByPublicId(publicId).orElseThrow(()->
-                new ResourceNotFoundException("Department not found with publicId "+publicId));
+        Department department = getDepartmentEntityByPublicId(publicId);
         departmentRepository.delete(department);
+    }
+
+    @Override
+    public List<DoctorSummaryDto> getDoctorsByDepartment(String publicId) {
+        Department department = getDepartmentEntityByPublicId(publicId);
+
+        List<Doctor> doctors = new ArrayList<>(department.getDoctors());
+
+        if(doctors.isEmpty()){
+            throw new ResourceNotFoundException("No doctors found in department with publicId :"+publicId);
+        }
+
+        return doctors.stream()
+                .map(doctor->modelMapper.map(doctor,DoctorSummaryDto.class))
+                .toList();
+
     }
 
 

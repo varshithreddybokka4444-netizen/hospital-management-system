@@ -26,7 +26,7 @@ public class AppointmentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(appointmentService.createNewAppointment(createAppointmentRequestDto));
     }
 
-    @GetMapping("/publicId")
+    @GetMapping("/{publicId}")
     public ResponseEntity<AppointmentResponseDto> getAppointmentByPublicId(@PathVariable String publicId){
         return ResponseEntity.ok(appointmentService.getAppointmentByPublicId(publicId));
     }
@@ -36,17 +36,17 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentService.getAllAppointments());
     }
 
-    @PutMapping("/publicId")
+    @PutMapping("/{publicId}")
     public ResponseEntity<AppointmentResponseDto> updateAppoinment(@PathVariable String publicId,@RequestBody @Valid AppointmentCreateDto updateAppointmentRequestDto){
         return ResponseEntity.ok(appointmentService.updateAppointment(publicId,updateAppointmentRequestDto));
     }
 
-    @PatchMapping("/publicId")
+    @PatchMapping("/{publicId}")
     public ResponseEntity<AppointmentResponseDto> partialUpdateAppointment(@PathVariable String publicId,@RequestBody @Valid AppointmentUpdateDto partialUpdateAppointmentRequestDto){
         return ResponseEntity.ok(appointmentService.partialUpdateAppointment(publicId,partialUpdateAppointmentRequestDto));
     }
 
-    @DeleteMapping("/publicId")
+    @DeleteMapping("/{publicId}")
     public ResponseEntity<Void> cancelAppointment(@PathVariable String publicId){
         appointmentService.cancelAppointmentByPublicId(publicId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

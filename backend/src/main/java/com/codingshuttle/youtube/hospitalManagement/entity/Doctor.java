@@ -37,9 +37,9 @@ public class Doctor {
     @ToString.Exclude
     private List<Appointment> appointments;
 
-    @ManyToMany(mappedBy = "doctors")
-    @ToString.Exclude
-    private Set<Department> departments = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     @PrePersist
     protected void onCreate(){
