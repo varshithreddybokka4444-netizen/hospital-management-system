@@ -2,6 +2,14 @@
 
 A full-stack Hospital Management System built to streamline the management of patients, doctors, departments, and appointments.
 
+## 🚀 Live Demo
+
+🌐 **Frontend (Vercel):**
+https://hospital-management-system-6h9x.vercel.app
+
+🔗 **Backend API (Render):**
+https://hospital-management-system-qa6u.onrender.com
+
 ## Features
 
 - Patient Management
