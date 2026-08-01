@@ -49,7 +49,7 @@ async function loadAppointments() {
 
 async function loadPatients() {
     try {
-        const response = await fetch(`{BASE_URL}/patients`);
+        const response = await fetch(`${BASE_URL}/patients`);
 
         patients = await response.json();
 console.log(patients);
