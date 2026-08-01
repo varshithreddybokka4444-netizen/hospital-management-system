@@ -81,6 +81,16 @@ public class DoctorServiceImpl implements DoctorService {
     @Transactional
     public void deleteDoctorByPublicId(String publicId) {
         Doctor doctor = getDoctorEntityByPublicId(publicId);
+        Department department = doctor.getDepartment();
+
+        if (department != null &&
+                department.getHeadDoctor() != null &&
+                department.getHeadDoctor().getId().equals(doctor.getId())) {
+
+            department.setHeadDoctor(null);
+
+        }
+        department.getDoctors().remove(doctor);
         doctorRepository.delete(doctor);
 
     }

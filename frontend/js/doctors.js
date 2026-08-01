@@ -426,3 +426,34 @@ const departmentSelect =
                     }
 
                 });
+
+                // ================================
+                // DELETE DOCTOR
+                // ================================
+
+                async function deleteDoctor(publicId) {
+
+                    const confirmed = confirm("Are you sure you want to delete this doctor?");
+
+                    if (!confirmed) return;
+
+                    try {
+
+                        const response = await fetch(`${API_URL}/${publicId}`, {
+                            method: "DELETE"
+                        });
+
+                        if (!response.ok) {
+                            throw new Error("Failed to delete doctor");
+                        }
+
+                        await loadDoctors();
+
+                    } catch (error) {
+
+                        console.error(error);
+                        alert("Unable to delete doctor.");
+
+                    }
+
+                }
