@@ -21,7 +21,7 @@ const STORAGE_KEYS = {
     appointments: "hms_appointments",
 };
 
- const BASE_URL = "http://localhost:8080";
+ const BASE_URL = "https://hospital-management-system-qa6u.onrender.com";
 // Reads an array from localStorage, defaulting to an empty array.
 function getData(key) {
     try {

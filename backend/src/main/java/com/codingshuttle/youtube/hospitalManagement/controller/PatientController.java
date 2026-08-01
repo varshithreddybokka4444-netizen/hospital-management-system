@@ -54,14 +54,14 @@ public class PatientController {
         return ResponseEntity.ok(patientService.updatePartialPatient(publicId,updatePartialPatientRequestDto));
     }
 
-    @PostMapping("/insurance")
+    @PostMapping("/{publicId}/insurance")
     public ResponseEntity<InsuranceResponseDto>  assignInsurance(@PathVariable String publicId,
                                                                  @RequestBody @Valid  InsuranceCreateDto assignInsuranceRequestDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(patientService.assignInsurance(publicId,assignInsuranceRequestDto));
     }
 
     @DeleteMapping("/insurance/{publicId}")
-    public ResponseEntity<Void> dissociateInsuranceOfPatientByPublicId(@PathVariable String patientPublicId){
+    public ResponseEntity<Void> dissociateInsuranceOfPatientByPublicId(@PathVariable("publicId") String patientPublicId){
         patientService.dissociateInsurance(patientPublicId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

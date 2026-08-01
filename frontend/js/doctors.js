@@ -2,8 +2,10 @@
 // API URL
 // ================================
 
-const API_URL = "http://localhost:8080/doctors";
-const DEPARTMENT_API_URL = "http://localhost:8080/departments";
+const BASE_URL = "https://hospital-management-system-qa6u.onrender.com";
+
+const API_URL =  `${BASE_URL}/doctors`;
+const DEPARTMENT_API_URL =  `${BASE_URL}/departments`;
 
 // ================================
 // DOM Elements

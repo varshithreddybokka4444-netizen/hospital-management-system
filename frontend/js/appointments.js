@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:8080/Appointments";
+
+const BASE_URL = "https://hospital-management-system-qa6u.onrender.com";
+const API_URL = "https://hospital-management-system-qa6u.onrender.com/Appointments";
 
 const appointmentTableBody = document.getElementById("appointmentTableBody");
 const appointmentCount = document.getElementById("appointmentCount");
@@ -47,7 +49,7 @@ async function loadAppointments() {
 
 async function loadPatients() {
     try {
-        const response = await fetch("http://localhost:8080/patients");
+        const response = await fetch(`{BASE_URL}/patients`);
 
         patients = await response.json();
 console.log(patients);
@@ -58,7 +60,8 @@ console.log(patients);
 
 async function loadDoctors() {
     try {
-        const response = await fetch("http://localhost:8080/doctors");
+
+         const response = await fetch(`${BASE_URL}/doctors`);
 
         doctors = await response.json();
 
